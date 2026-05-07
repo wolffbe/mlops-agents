@@ -547,7 +547,7 @@ Understanding these principles is critical not only for building models but also
 
 The \gls{AI} lifecycle, also referred to as the \gls{ML} lifecycle, is usually organized in three phases~\cite{de_silva_artificial_2022}. The first is the design phase, typically managed by a data scientist, and encompasses identifying and formulating the problem, reviewing data and \gls{AI} ethics, reviewing technical literature on \gls{AI} algorithms, applications, and pre-trained models, as well as data preparation, data exploration, and external data acquisition. The second is the development phase, carried out by \gls{AI}/\gls{ML} scientists, which involves data pre-processing, building an initial model, augmenting data, developing a benchmark, building multiple models, evaluating primary metrics, and explaining or interpreting the model. The third is the deployment phase, managed by the \gls{AI}/\gls{ML} engineer, and consists of evaluating secondary metrics, deploying the model and assessing risks, reviewing the deployment, operationalizing the model, and monitoring and evaluating the model's performance.
 
-The most popular programming language in \gls{ML} is Python~\cite{raschka_machine_2020}. Python is a high-level interpreted programming language, meaning it abstracts away most low-level hardware details and executes code line by line rather than compiling it into machine code~\cite{van_rossum_python_2003}. Python supports an open-source ecosystem of frameworks for \gls{ML} engineering, including data preparation, model training, and visualization~\cite{raschka_machine_2020}. Key tools include NumPy for array programming and mathematical abstractions~\cite{harris_array_2020}, Pandas for data analysis and manipulation, scikit-learn and TensorFlow as \gls{ML} libraries~\cite{abadi_tensorflow_2016}, NetworkX for graph analytics, and Matplotlib for visualization~\cite{barrett_matplotlib_2005}.
+The most popular programming language in \gls{ML} is Python~\cite{raschka_machine_2020}. Python is a high-level interpreted programming language, meaning it abstracts away most low-level hardware details and executes code line by line rather than compiling it into machine code~\cite{van_rossum_python_2003}. Python supports an open-source ecosystem of frameworks for \gls{ML} engineering, including data preparation, model training, and visualization~\cite{raschka_machine_2020}. Open-source software is software whose source code is publicly available under a license that permits anyone to inspect, modify, and redistribute it, typically subject to conditions specified by the license \cite{raymond_cathedral_2001}. Key tools include NumPy for array programming and mathematical abstractions~\cite{harris_array_2020}, Pandas for data analysis and manipulation, scikit-learn and TensorFlow as \gls{ML} libraries~\cite{abadi_tensorflow_2016}, NetworkX for graph analytics, and Matplotlib for visualization~\cite{barrett_matplotlib_2005}.
 
 In addition to programming, successful \gls{ML} engineering requires attention to broader technical and organizational concerns~\cite{serban_adoption_2020}. These span data management, training, coding, deployment, team collaboration, and governance, and include practices such as performing sanity checks on external data sources, applying version control to data, models, and training scripts, automating deployment processes, monitoring model behavior continuously, and ensuring fairness, accountability, and data privacy throughout the \gls{ML} lifecycle. Ensuring that these practices are consistently applied across the lifecycle of production-ready \gls{ML} products is the focus of \gls{MLOps}.
 
@@ -765,7 +765,9 @@ While function calling standardized how individual \glspl{LLM} interact with ext
 
 In late 2024, Anthropic launched the \gls{MCP}, a universal open standard for defining, discovering, and invoking external tools for \gls{AI} applications~\cite{hou_model_2026}. Drawing inspiration from the Language Server Protocol, an open standard originally developed by Microsoft that decouples programming language support from code editors by defining a common interface through which any editor can communicate with any language server for features such as auto-completion and error checking~\cite{gunasinghe_language_2021}, \gls{MCP} introduces several innovations that extend beyond conventional function calling. It provides a protocol-based standard that decouples tool implementation from usage, enabling developers to publish and describe external functions dynamically, independent of any single model or agent framework. It supports dynamic discovery and schema negotiation, allowing clients to list available tools at runtime, retrieve their capabilities, and invoke them in a uniform manner without requiring prior hardcoding or platform-specific adapters. It enables bi-directional communication channels, allowing not only model-to-tool requests but also tool-initiated events and notifications back to the host. It also designs access control and capability negotiation as first-class features, offering a foundation for more auditable and secure \gls{AI}-to-tool interactions.
 
-An example of domain-specific \gls{MCP} adoption in scientific research is the Isabl \gls{AI} Agent, developed for the Isabl Platform, a precision oncology system broadly adopted at Memorial Sloan Kettering Cancer Center and external research institutions~\cite{arango_ossa_abstract_2026}. The platform manages hundreds of projects encompassing over 105,000 sequencing experiments from approximately 70,000 individuals and more than 4.5 petabytes of analytical data. To reduce the learning curve imposed by the platform's depth and schema complexity, the authors developed an \gls{MCP} server exposing Isabl tools such as \gls{API} querying and pipeline execution through a standardized interface, combined with \gls{RAG} over indexed documentation and a ReAct-style agentic controller. ReAct is an approach that enables large language models to interleave reasoning traces and task-specific actions, allowing them to plan, update, and execute tasks while interacting with external sources for improved performance, interpretability, and reliability~\cite{yao_react_2022}. The agent handles tasks ranging from cohort discovery and multi-step genomic reasoning to automated workflow submission via natural language, demonstrating how \gls{MCP} can bridge general-purpose \glspl{LLM} with specialized scientific infrastructure.
+The \gls{MCP} is guided by a set of principles that prioritize consistency, simplicity, and long-term sustainability \cite{soria_design_2026}. It favors convergence by enforcing a single well-designed solution rather than multiple competing approaches, and emphasizes composability by relying on a small set of core primitives instead of adding specialized features. Interoperability is preferred over optimization, ensuring the protocol functions across diverse systems with varying capabilities, while stability is prioritized over rapid iteration to avoid irreversible design decisions. The protocol also avoids compensating for temporary model limitations, instead focusing on enduring capabilities, and values demonstrated implementations over theoretical discussion. Pragmatism guides decision-making to balance usability with design purity, and standardization is based on proven patterns rather than speculative innovation, ensuring that extensions serve as experimentation grounds before becoming part of the core specification.
+
+An example of domain-specific \gls{MCP} adoption in scientific research is the Isabl \gls{AI} Agent, developed for the Isabl Platform, a precision oncology system broadly adopted at Memorial Sloan Kettering Cancer Center and external research institutions~\cite{arango_ossa_abstract_2026}. The platform manages hundreds of projects encompassing over 105,000 sequencing experiments from approximately 70,000 individuals and more than 4.7 petabytes of analytical data. To reduce the learning curve imposed by the platform's depth and schema complexity, the authors developed an \gls{MCP} server exposing Isabl tools such as \gls{API} querying and pipeline execution through a standardized interface, combined with \gls{RAG} over indexed documentation and a ReAct-style agentic controller. ReAct is an approach that enables large language models to interleave reasoning traces and task-specific actions, allowing them to plan, update, and execute tasks while interacting with external sources for improved performance, interpretability, and reliability~\cite{yao_react_2022}. The agent handles tasks ranging from cohort discovery and multi-step genomic reasoning to automated workflow submission via natural language, demonstrating how \gls{MCP} can bridge general-purpose \glspl{LLM} with specialized scientific infrastructure.
 
 A systematic study of \gls{MCP} defines the full lifecycle of an \gls{MCP} server as comprising four phases~\cite{hou_model_2026}. The first phase is creation, in which developers define metadata, declare capabilities, and implement the server. The second phase is deployment, in which the server is released to a platform and registered with a host. The third phase is operation, in which the server actively interprets user intent, accesses external resources, invokes tools, and manages sessions. The fourth phase is maintenance, which covers version control, configuration changes, and security auditing~\cite{hou_model_2026}. Since its release, \gls{MCP} has rapidly grown into a foundational architecture for \gls{AI}-native applications, with thousands of independently developed servers exposing model-accessible interfaces to services such as GitHub, Slack, a workplace messaging platform for team communication and collaboration~\cite{slack_technologies_llc_a_salesforce_company_slack_2026}, and Blender, an open-source three-dimensional modeling and animation application~\cite{blender_foundation_blender_2026}. Platforms like Cursor, an \gls{AI}-augmented code editor~\cite{anysphere_inc_cursor_2026}, and Claude Desktop, a desktop application providing access to Anthropic's \glspl{LLM}~\cite{anthropic_pbc_use_2026}, demonstrate how \gls{MCP}-enabled clients can flexibly extend functionality by connecting to new servers on demand.
 
@@ -806,7 +808,7 @@ While the preceding chapters have established the theoretical foundations of age
 \section{Related Work}
 \glsresetall
 
-This section reviews existing research relevant to the present work. It is organized into three subsections: \gls{ML}, benchmarks, and tool design and optimization. The first subsection examines \gls{ML} from two perspectives: agents that automate \gls{ML} workflows and the platforms on which these workflows are executed. The second covers benchmarks across four areas: coding agents, the \gls{MCP}, the \gls{CLI}, and \gls{ML} agents. The third addresses the design and optimization of tools available to agents.
+This section reviews existing research relevant to the present work. It is organized into three subsections: \gls{ML}, tool design and optimization, and benchmarks. The first examines \gls{ML} from two perspectives: agents that automate \gls{ML} workflows and the platforms on which these workflows are executed. The second reviews approaches to designing and optimizing the tools available to \gls{LLM}-based agents. The third surveys benchmarks across five areas: coding agents, the \gls{MCP}, the \gls{CLI}, comparisons of the \gls{MCP} and the \gls{CLI}, and \gls{ML} agents.
 
 \subsection{Machine Learning}
 
@@ -826,11 +828,11 @@ A third study transforms a conventional \gls{API}-based analytics platform into 
 
 Auto\gls{ML}Pipeline is a closed-loop code generation framework that integrates \gls{RAG} with \gls{RL} feedback mechanisms to produce deployment-ready pipeline code for cloud-native \gls{ML} platforms~\cite{zhao_automl-pipeline_2026}. The framework leverages a knowledge base constructed from successful pipeline execution logs to guide \gls{GPT}-4 in generating code that adheres to platform-specific constraints, and introduces a pre-validation agent that employs simulated execution environments to predict resource consumption and detect dependency conflicts before deployment. Evaluation on the CodeSearchNet dataset augmented with Azure \gls{ML} pipeline specifications demonstrates a 43.7\% improvement in first-submission success rate and a 31.2\% reduction in resource over-provisioning compared to vanilla \gls{GPT}-4 baselines. This approach is the closest to the present work in that it generates executable code targeting a cloud platform, covering data preparation, model generation, and model evaluation. However, Azure is a general-purpose cloud platform rather than a special-purpose \gls{ML} platform, the framework does not address feature engineering, and it relies solely on code generation without employing external tools such as the \gls{MCP} or the \gls{CLI} to interact with the platform at runtime.
 
-In summary, while existing research has explored agents for automating \gls{ML} workflows, no study to date has compared the performance of agents across different tool types when operating \gls{ML} platforms entirely via their interfaces. Current approaches either rely on integrated architectures without standardized tool interfaces, limit their scope to individual stages of the \gls{AutoML} pipeline, or generate code without runtime interaction with the target platform. None of these works evaluate how the choice of tool type, such as the \gls{MCP} or the \gls{CLI}, affects agent performance in managing feature, training, and inference pipelines on a \gls{ML} platform, nor do they identify the conditions under which one tool type is more suitable than the other. Furthermore, while skills have been shown to improve agent performance, whether this effect holds equally across tool types when operating \gls{ML} platforms remains unexplored.
+In summary, while existing research has explored agents for automating \gls{ML} workflows, no study to date has compared the performance of agents across different tool types when operating \gls{ML} platforms entirely via their interfaces. Current approaches either rely on integrated architectures without standardized tool interfaces, limit their scope to individual stages of the \gls{AutoML} pipeline, or generate code without runtime interaction with the target platform. None of these works evaluate how the choice of tool type, such as the \gls{MCP} or the \gls{CLI}, affects agent performance in managing feature, training, and inference pipelines on a \gls{ML} platform, nor do they examine to what extent each interface type directs agents toward executing tasks on the remote platform rather than locally in Python. Furthermore, while skills have been shown to improve agent performance, whether they can shift agents from local Python execution toward the remote \gls{ML} platform, and whether this effect holds equally across tool types, remains unexplored.
 
 \subsubsection{Platforms}
 
-Beyond the Hopsworks Feature Store, numerous other data science and \gls{ML} platforms exist. Gartner, an American research and advisory firm, classifies vendors into four categories as displayed in Figure~\ref{fig:gartner}: leaders, challengers, visionaries and niche players~\cite{gartner_inc_magic_2026}. Leaders have mature platform strategies that leverage \gls{GenAI} and agents, and innovate at a pace that outpaces competing vendors. Eight platforms occupy this category, including those from Databricks, Google Cloud, Microsoft Azure and \gls{AWS}. Challengers possess the operational capacity to serve broad enterprise needs but are constrained by limited geographic or industry focus. Alibaba Cloud is the sole entrant in this category. Visionaries offer differentiated, forward-looking solutions but lack sufficient recognition for end-to-end adoption, and include five platforms from companies such as Snowflake, \gls{SAS} and Cloudera. Niche Players, such as Alteryx and MathWorks, focus on specific industries or user groups but have limited broader market traction~\cite{wiley_databricks_2025, jaffri_magic_2025}.
+Beyond the Hopsworks Feature Store, numerous other data science and \gls{ML} platforms exist \cite{hopsworks_ab_feature_2025}. Gartner, an American research and advisory firm, classifies vendors into four categories as displayed in Figure~\ref{fig:gartner}: leaders, challengers, visionaries and niche players~\cite{gartner_inc_magic_2026}. Leaders have mature platform strategies that leverage \gls{GenAI} and agents, and innovate at a pace that outpaces competing vendors. Eight platforms occupy this category, including those from Databricks, Google Cloud, Microsoft Azure and \gls{AWS}. Challengers possess the operational capacity to serve broad enterprise needs but are constrained by limited geographic or industry focus. Alibaba Cloud is the sole entrant in this category. Visionaries offer differentiated, forward-looking solutions but lack sufficient recognition for end-to-end adoption, and include five platforms from companies such as Snowflake, \gls{SAS} and Cloudera. Niche Players, such as Alteryx and MathWorks, focus on specific industries or user groups but have limited broader market traction~\cite{wiley_databricks_2025, jaffri_magic_2025}.
 
 \begin{figure}[H]
     \centering
@@ -839,13 +841,25 @@ Beyond the Hopsworks Feature Store, numerous other data science and \gls{ML} pla
     \label{fig:gartner}
 \end{figure}
 
-Other notable platforms in the wider ecosystem include Aible, Bauplan, Modal, Feast, Iguazio, JFrog, and Teradata. In total, 96.15\% of platforms offer a \gls{CLI} and 76.92\% provide the ability for agents to connect via \gls{MCP}. Additionally, 23.08\% offer infrastructure to host \gls{MCP} servers. For instance, Dataiku allows users to publish agents as \gls{MCP} tools and host them as web applications within the platform using Code Studios~\cite{dataiku_code_2026}. Modal provides a \gls{CLI} that allows users to run interactive shells, deploy applications, and manage resources directly from the terminal~\cite{modal_modal_2026}. 30.77\% of platforms include agents that assist in operating the platform, 76.92\% support agent hosting, and 38.46\% provide skills\footnote{An overview of all platforms and their \gls{CLI}, \gls{MCP}, agent and skill support is located in table~\ref{tab:ml-platforms} in the appendix.}. For example, Google developed a Gemini \gls{API} skill that improved coding agent performance from under 7\% to over 95\%~\cite{schmid_closing_2026}. Agent hosting refers to the ability of a platform to deploy, execute, and manage agents within its own infrastructure. For example, Cloudera offers Agent Studio, a platform for building, testing, and deploying multi-agent systems~\cite{cloudera_inc_agent_2026}. Databricks recently released Genie Code, a coding agent that can build pipelines, debug failures, train \gls{ML} models, and proactively monitor production workloads directly within the platform~\cite{wendell_introducing_2026}.
+Other notable platforms in the wider ecosystem include Aible, Bauplan, Modal, Feast, Iguazio, JFrog, and Teradata. In total, out of 39 platforms, 84.21\% offer a \gls{CLI} and 57.89\% provide the ability for agents to connect via \gls{MCP}. Additionally, 15.79\% offer infrastructure to host \gls{MCP} servers. For instance, Dataiku allows users to publish agents as \gls{MCP} tools and host them as web applications within the platform using Code Studios~\cite{dataiku_code_2026}. Modal provides a \gls{CLI} that allows users to run interactive shells, deploy applications, and manage resources directly from the terminal~\cite{modal_modal_2026}. 28.95\% of platforms include agents that assist in operating the platform, 52.63\% support agent hosting, and 28.95\% provide skills\footnote{An overview of all platforms and their \gls{CLI}, \gls{MCP}, agent and skill support is located in table~\ref{tab:ml-platforms} in the appendix.}. For example, Google developed a Gemini \gls{API} skill that improved coding agent performance from under 7\% to over 95\%~\cite{schmid_closing_2026}. Agent hosting refers to the ability of a platform to deploy, execute, and manage agents within its own infrastructure. For example, Cloudera offers Agent Studio, a platform for building, testing, and deploying multi-agent systems~\cite{cloudera_inc_agent_2026}. Databricks recently released Genie Code, a coding agent that can build pipelines, debug failures, train \gls{ML} models, and proactively monitor production workloads directly within the platform~\cite{wendell_introducing_2026}.
 
-Despite the increasing adoption of \gls{ML} agents and \gls{MCP} in \gls{ML} platforms, no research exists that systematically evaluates whether these mechanisms enable effective end-to-end usage of such platforms, or how performance differs when agents interact with these platforms via \gls{CLI} or \gls{MCP} interfaces. While some empirical evidence suggests that skills can improve agent performance, these findings are not derived from \gls{MLOps} platform settings and do not assess their impact on agents’ ability to operate \gls{ML} platforms across the entire \gls{AutoML} process. Having outlined the current landscape of both agents platforms and their limitations in the context of \gls{ML}, the following section examines how these systems are evaluated.
+Despite the increasing adoption of \gls{ML} agents and \gls{MCP} in \gls{ML} platforms, no research exists that systematically evaluates how performance differs when agents interact with these platforms via \gls{CLI} or \gls{MCP} interfaces, nor to what extent each interface type directs agents toward executing tasks on the remote platform rather than locally in Python. While some empirical evidence suggests that skills can improve agent performance, these findings are not derived from \gls{MLOps} platform settings and do not assess whether skills can shift agents from local Python execution toward the remote \gls{ML} platform, or whether this effect holds equally across tool types. Having outlined the current landscape of \gls{ML} agents and platforms and their limitations, the following section examines how these systems are evaluated.
+
+\subsection{Tool Design and Optimization}
+
+Existing research on tool design for \gls{LLM} agents focuses primarily on optimizing tool selection and context management as the number of available tools scales beyond the constraints of the context window.
+
+A first study delivers the first large-scale mixed-methods analysis of strategies that reconcile multi-\gls{MCP} autonomy with context limits~\cite{v_scaling_2025}. It benchmarks six optimization families, including baseline, \gls{RAG}-\gls{MCP}, contextual compression, hierarchical \gls{MCP} routing, adaptive chunking, and multi-agent coordination, across quantitative metrics and eight qualitative case studies. Experiments on TaskBench, \gls{MCP}-Radar, \gls{MCP}Eval, and \gls{BFCL} show a mean token reduction of 37\% and a mean accuracy gain of 23 percentage points. The study synthesizes a decision matrix and proposes a governance framework for enterprise deployments, positioning contextual compression combined with \gls{RAG}-\gls{MCP} as the current Pareto frontier for developers.
+
+MemTool introduces a short-term memory framework enabling \gls{LLM} agents to dynamically retrieve and manage tools or \gls{MCP} server contexts across multi-turn conversations~\cite{campos_memtool_2026}. It offers three agentic architectures: an autonomous agent mode granting full tool management autonomy, a workflow mode providing deterministic control, and a hybrid mode combining both. Evaluation across 12 \glspl{LLM} on Scale\gls{MCP}-334K, a benchmark of 334,685 tools, over 100 consecutive user interactions shows that reasoning \glspl{LLM} achieve high tool-removal efficiency of 90--94\% in autonomous mode, while medium-sized models exhibit significantly lower efficiency. Workflow and hybrid modes consistently manage tool removal effectively, whereas autonomous and hybrid modes excel at task completion.
+
+ScaleMCP proposes a tool selection approach that dynamically equips \gls{LLM} agents with an \gls{MCP} tool retriever and an auto-synchronizing tool storage pipeline through CRUD operations with \gls{MCP} servers as the single source of truth~\cite{v_scaling_2025}. It introduces Tool Document Weighted Average, an embedding strategy that selectively emphasizes critical components of tool documents during the embedding process. Evaluation on a dataset of 5,000 financial metric \gls{MCP} servers across ten \glspl{LLM}, five embedding models, and five retriever types demonstrates substantial improvements in tool retrieval and agent invocation performance.
+
+While these studies advance the optimization of tool selection and context management for \gls{LLM}-based agents, none compare agent performance between the \gls{MCP} and the \gls{CLI} as alternative tool types for coding agents operating \gls{ML} platforms, or examine to what extent each interface type directs agents toward executing tasks on the remote platform rather than locally in Python. Furthermore, no existing research addresses whether skills can shift agents from local Python execution toward the remote \gls{ML} platform, or whether this effect differs between tool types. Having outlined how tools for \gls{LLM}-based agents are designed and optimized, the following section examines how the resulting tools and the agents using them are evaluated empirically.
 
 \subsection{Benchmarks}
 
-The following subsections review existing benchmarks across four areas relevant to the \glspl{RQ}: coding agents, the \gls{MCP}, the \gls{CLI}, and \gls{ML} agents.
+The following subsections review existing benchmarks across five areas relevant to the \glspl{RQ}: coding agents, the \gls{MCP}, the \gls{CLI}, comparisons of the \gls{MCP} and the \gls{CLI}, and \gls{ML} agents.
 
 \subsubsection{Coding Agents}
 
@@ -859,7 +873,7 @@ Automated program repair represents another active area. A survey traces the evo
 
 Further benchmarks evaluate broader coding agent capabilities. \gls{MMAU} provides offline evaluation across five domains including tool use, data science and \gls{ML} coding, and contest-level programming, covering capabilities such as understanding, reasoning, planning, problem-solving, and self-correction~\cite{yin_mmau_2025}. HumanEvalComm assesses the communication skills of \glspl{LLM} for code generation, evaluating their ability to ask clarifying questions when problem descriptions contain inconsistencies, ambiguities, or incompleteness~\cite{wu_humanevalcomm_2025}. CooperBench evaluates collaborative coding through 600 tasks where two coding agents must coordinate on independently implementable but potentially conflicting features, revealing a 30\% average drop in success when agents work together versus individually~\cite{khatua_cooperbench_2026}. \gls{CoSQA}+ introduces an automated pipeline for semantic code search evaluation with test-driven agent annotation~\cite{gong_cosqa_2026}. BenchAgents proposes a framework that leverages \glspl{LLM} to automate benchmark creation for complex capabilities through planning, generation, data verification, and evaluation agents~\cite{butt_benchagents_2025}. 
 
-While \gls{MMAU} includes data science and \gls{ML} coding as one of its evaluation domains, it assesses general coding competence on \gls{ML} tasks rather than evaluating coding agents that operate \gls{ML} platforms through tool interfaces. None of the reviewed benchmarks evaluate coding agents managing feature, training, and inference pipelines on a \gls{ML} platform, nor do they compare agent performance across different tool types such as the \gls{MCP} and the \gls{CLI}. Furthermore, existing coding agent benchmarks do not consider the influence of skills written in \gls{MD} on coding agent performance.
+While \gls{MMAU} includes data science and \gls{ML} coding as one of its evaluation domains, it assesses general coding competence on \gls{ML} tasks rather than evaluating coding agents that operate \gls{ML} platforms through tool interfaces. None of the reviewed benchmarks evaluate coding agents managing feature, training, and inference pipelines on a \gls{ML} platform, nor do they compare agent performance across different tool types such as the \gls{MCP} and the \gls{CLI}, or examine to what extent each interface type directs agents toward executing tasks on the remote platform rather than locally in Python. Furthermore, existing coding agent benchmarks do not consider whether skills written in \gls{MD} can shift agents from local Python execution toward the remote \gls{ML} platform, or whether this effect differs across tool types. Having outlined the broader benchmarking landscape for coding agents, the following section narrows in on benchmarks that specifically target the \gls{MCP}.
 
 \subsubsection{Model Context Protocol}
 
@@ -873,15 +887,35 @@ The first benchmark addresses the application of the \gls{MCP} to relational dat
 
 In the domain of security, \gls{MCP}Tox introduces the first benchmark to systematically evaluate agent robustness against tool poisoning in realistic \gls{MCP} settings~\cite{wang_mcptox_2026}. Constructed upon 45 live, real-world \gls{MCP} servers and 353 authentic tools, it generates 1,348 malicious test cases covering ten categories of potential risks. Evaluation on 20 prominent \gls{LLM} agents reveals widespread vulnerability, with more capable models often more susceptible due to their superior instruction-following abilities. While \gls{MCP}Tox addresses an important dimension of agent evaluation, it focuses on security rather than task performance across \gls{ML} workflows.
 
-However, none of the reviewed \gls{MCP} benchmarks evaluate agents managing feature, training, and inference pipelines on a \gls{ML} platform, nor do they compare \gls{MCP}-based tool interaction against alternative tool types such as the \gls{CLI}. Furthermore, none of the existing \gls{MCP} benchmarks incorporate the effect of skills on agent performance.
+However, none of the reviewed \gls{MCP} benchmarks evaluate agents managing feature, training, and inference pipelines on a \gls{ML} platform, nor do they examine to what extent the \gls{MCP} directs agents toward executing tasks on the remote platform rather than locally in Python. Furthermore, none of the existing \gls{MCP} benchmarks incorporate whether skills can shift agents from local Python execution toward the remote \gls{ML} platform. The following section turns to benchmarks targeting the \gls{CLI}.
 
 \subsubsection{Command Line Interface}
 
 Compared to the \gls{MCP}, benchmarking of \gls{LLM} agents operating \glspl{CLI} remains limited. Terminal-Bench 2.0 is the only benchmark specifically designed to evaluate agents on tasks in computer terminal environments~\cite{merrill_terminal-bench_2026}. It comprises 89 curated tasks inspired by real workflows, each featuring a unique environment, a human-written solution, and comprehensive tests for verification. Among its tasks, the benchmark includes several \gls{ML}-related challenges~\cite{stanford_university_terminal-bench_2026}. One task requires training a \gls{CNN} on \gls{CIFAR}-10, a widely used image classification dataset consisting of 60,000 colour images across ten classes~\cite{krizhevsky_learning_2009}, using the Caffe framework, an early open-source \gls{DL} library developed at the Berkeley Vision and Learning Center~\cite{jia_caffe_2014}. Another involves reconstructing and fine-tuning a PyTorch model from a state dictionary~\cite{paszke_pytorch_2019}, a serialized representation of a model's learned parameters. A third task requires implementing pipeline parallel training for the \gls{LLaMA} model, a technique that partitions model layers across multiple devices to enable training of large models that exceed the memory capacity of a single device. A fourth task involves training a FastText model, a lightweight text classification and word representation library developed by Facebook Research~\cite{joulin_fasttextzip_2016}, on review data. A fifth task requires building a command line tool for inference on \gls{MNIST}, a benchmark dataset of handwritten digit images commonly used for evaluating image classification models~\cite{lecun_mnist_2010}. These tasks partially address the model generation and model evaluation stages of the \gls{AutoML} pipeline. Evaluation of frontier models and agents shows that none exceeds 65\% on the benchmark, with error analysis identifying areas for model and agent improvement. However, Terminal-Bench 2.0 does not systematically cover the full \gls{AutoML} pipeline, including data preparation and feature engineering, nor does it evaluate agents operating a \gls{ML} platform or compare \gls{CLI}-based interaction against alternative tool types such as the \gls{MCP}. 
 
-In summary, no \gls{CLI} benchmark for \gls{MLOps} exists, and no studies compare the performance of \gls{CLI}-based tools with \gls{MCP}-based tools in the context of \gls{ML} platforms. Furthermore, there is no systematic empirical evidence on how skills influence \gls{CLI} usage in coding agents operating \gls{ML} platforms.
+In summary, no \gls{CLI} benchmark for \gls{MLOps} exists, and no studies examine to what extent the \gls{CLI} directs agents toward executing tasks on the remote platform rather than locally in Python. There is also no systematic empirical evidence on whether skills can shift agents from local Python execution toward the remote \gls{ML} platform when using a \gls{CLI}. The following section turns to direct comparisons between the \gls{MCP} and the \gls{CLI}.
 
-While the preceding sections examined benchmarks for coding agents, the \gls{MCP}, and the \gls{CLI} in general, the following section reviews benchmarks that specifically target agents performing \gls{ML} tasks.
+\subsubsection{Model Context Protocol versus Command Line Interface}
+
+No peer-reviewed research exists to date that directly compares the \gls{MCP} and the \gls{CLI} as alternative tool interfaces for coding agents. The absence of peer-reviewed coverage reflects the recency of the topic: practitioner discussion of \gls{MCP}-versus-\gls{CLI} trade-offs began in earnest in August 2025, leaving little time for academic work to be conducted, peer-reviewed, and published in the months since. Practitioner discourse on the trade-offs between the two has nevertheless been ongoing since August 2025, primarily through technical blog posts, GitHub discussions, and threads on platforms such as Hacker News.\footnote{Where available, the corresponding Hacker News discussion thread is included in the bibliography entry of the primary source.}
+
+An early benchmark evaluated equivalent \gls{MCP} and \gls{CLI} versions of a terminal-control tool against established alternatives such as tmux and screen across 120 runs spanning debugging, \gls{REPL}, and \glspl{TUI} navigation tasks, finding equivalent success rates and similar costs between the two variants~\cite{zechner_mcp_2025}. A subsequent post argued that established \gls{MCP} servers such as Playwright \gls{MCP} consume 13{,}700 to 18{,}000 tokens of context across 21 to 26 exposed tools, whereas a 225-token \gls{MD} file documenting four equivalent \gls{CLI} scripts achieved the same functionality, representing a roughly 60-fold reduction~\cite{zechner_what_2025}. Together, these posts converge on the position that the choice between \gls{MCP} and \gls{CLI} is largely determined by tool design rather than the protocol itself.
+
+A browser-automation benchmark evaluated the official Chrome DevTools \gls{MCP} server against a \gls{CLI} providing direct Chrome DevTools Protocol access across five debugging scenarios of increasing difficulty~\cite{kumak_mcp_2025}. The \gls{CLI}-based tool was reported to achieve a 33 percent higher token-efficiency score and to complete tasks that the \gls{MCP} could not address structurally, such as heap profiling and batch JavaScript execution, due to the \gls{MCP} server not exposing the underlying capabilities. The \gls{MCP}'s accessibility-tree snapshots, intended to provide complete page understanding in a single call, were reported to return all 195 options of a country drop-down on every interaction, inflating token consumption to 15{,}200 tokens for a task the \gls{CLI} completed in 3{,}500 tokens. The post argued that selective queries, predictable output sizing, and full capability access serve agent debugging workflows better than comprehensive snapshots, while acknowledging that the \gls{MCP}'s constraints can be advantageous in sand-boxed or cross-platform contexts where capability restriction is intentional.
+
+A separate analysis quantified the context overhead of the \gls{MCP} relative to a \gls{CLI}-based equivalent under a typical configuration of six \gls{MCP} servers exposing 84 tools in total~\cite{yilmaz_i_2026}. The \gls{MCP} was reported to load the full \gls{JSON} schema for every tool at session start, consuming approximately 15{,}540 tokens, whereas an equivalent \gls{CLI}-based setup loaded only a lightweight listing of tool names and locations, consuming approximately 300 tokens, with tool definitions discovered on demand through standard \gls{CLI} mechanisms such as \texttt{--help}. Across configurations ranging from a single tool call to 100 tool calls per session, the \gls{CLI}-based setup was reported to use roughly 92 to 98 percent fewer tokens than the \gls{MCP}, and to remain cheaper than \gls{MCP}-based tool search mechanisms designed to mitigate the schema-loading overhead.
+
+A GitHub-focused benchmark compared the \gls{MCP}, the \gls{CLI}, and a \gls{CLI} variant augmented with skills on five read-only tasks, holding the model and prompts constant across 75 runs~\cite{madabhushi_mcp_2026}. Token usage was reported to be 4 to 32 times higher for the \gls{MCP} than for the \gls{CLI}, attributed primarily to schema injection: the evaluated server exposed 43 tools, all of whose schemas were loaded into the conversation context regardless of which tools were used. Reliability also differed substantially, with the \gls{CLI} variants completing all 25 runs successfully and the \gls{MCP} variant failing in 7 of 25 runs due to remote connection timeouts. Augmenting the \gls{CLI} with an 800-token skill document reduced tool calls and latency by roughly one third compared to the unaugmented \gls{CLI}. The post nevertheless argued that the \gls{MCP}'s overhead is justified in multi-user, multi-tenant deployments where per-user authorization, tenant isolation, and structured audit trails are required.
+
+A complementary analysis framed the choice between the two interfaces not as a binary preference but as a function of where in the software delivery lifecycle the agent operates~\cite{schmitt_mcp_2026}. The post distinguished between the inner loop, where developers iterate rapidly on local code through writing, testing, and debugging, and the outer loop, where work crosses into shared infrastructure such as continuous integration, deployment, and code review. \gls{CLI} tools were argued to fit the inner loop because of their low context-window overhead, their familiarity to models from training data, and their composability through standard shell mechanisms, whereas the \gls{MCP} was argued to fit the outer loop because of its centralized authentication, structured \gls{JSON} responses, runtime tool discovery, and ability to maintain session state across multi-step workflows. The conclusion is that production setups typically require both interfaces, matched to the loop they serve, rather than choosing one over the other.
+
+A further critique pushed back on the prevailing narrative that the \gls{CLI} uniformly outperforms the \gls{MCP}, arguing that the comparison shifts substantially depending on whether the \gls{CLI} tools in question are well-known utilities or bespoke implementations~\cite{chen_mcp_2026}. Standard tools such as \texttt{git}, \texttt{curl}, \texttt{jq}, or cloud provider \glspl{CLI} were reported to be highly token-efficient because models have encountered them extensively in training data and can invoke them without explicit instruction. Bespoke \glspl{CLI}, by contrast, were argued to require descriptions in agentic coding manifests or repeated traversal of \texttt{--help} output to discover commands and parameters, characterized as ``the \gls{MCP} schema, just without any structure''. The post further distinguished between \gls{MCP} servers running locally over standard input and output and remote \gls{MCP} servers running over streamable \gls{HTTP}, arguing that only the former is meaningfully comparable to a \gls{CLI}, while the latter offers organizational benefits such as centralized authentication, telemetry, observability, and dynamic delivery of prompts and resources that are difficult to reproduce with locally distributed \gls{CLI} tools.
+
+An industry implementation report described \gls{CLI}-based agent integration for a unified \gls{API} platform exposing dozens of services across accounting, human resources, customer relationship management, and e-commerce domains~\cite{amzani_your_2026}. Connecting three \gls{MCP} servers for GitHub, Slack, and Sentry was reported to consume approximately 55{,}000 tokens of tool definitions before any user message was processed, with one cited case occupying 143{,}000 of 200{,}000 available context tokens. In response, the platform was integrated through a \gls{CLI} whose agent-facing system prompt was reduced to roughly 80 tokens, with capability discovery deferred to runtime. Operations were classified at the binary level by \gls{HTTP} method such that read operations were auto-approved, write operations required confirmation, and delete operations were blocked by default, with prompt-based safety described as inadequate against prompt-injection attacks. The post also cited a benchmark on Stripe \gls{API} tasks reporting that a Code Mode pattern, in which the agent writes orchestration scripts that invoke structured tools internally, used 58 percent fewer tokens than raw \gls{MCP} and 56 percent fewer than the \gls{CLI} on multi-step workflows. The conclusion is that \glspl{CLI}, \gls{MCP}, and code execution are complementary rather than competing approaches.
+
+In summary, no peer-reviewed benchmark systematically compares \gls{MCP} and \gls{CLI} interfaces for coding agents. The existing practitioner comparisons cover terminal-control, browser-automation, browser-debugging, tool-discovery overhead, GitHub workflows, the distinction between trained and bespoke tools, the role of interface choice across stages of the development lifecycle, and industry implementations of unified \gls{API} access through \glspl{CLI}. None evaluate agents managing feature, training, and inference pipelines on a \gls{ML} platform, examine to what extent each interface type directs agents toward executing tasks on the remote platform rather than locally in Python, or assess whether skills can shift agents from local Python execution toward the remote \gls{ML} platform across interface types.
+
+While the preceding sections examined benchmarks for coding agents, the \gls{MCP}, the \gls{CLI}, and comparisons between them, the following section reviews benchmarks that specifically target agents performing \gls{ML} tasks.
 
 \subsubsection{Machine Learning Agents}
 
@@ -895,78 +929,51 @@ Building on \gls{ML}AgentBench, \gls{MLE}-bench curates 75 \gls{ML} engineering 
 
 \gls{ML}Algo-Bench, which references \gls{MLE}-bench, introduces two tasks focused on \gls{ML} code generation~\cite{wang_mlalgo-bench_2025}. The first requires generating code for \gls{ML} algorithms including both traditional and deep learning-based methods. The second provides human-authored solution sketches and requires writing \gls{ML} code for practical tasks in Kaggle competitions. Evaluation using an automatic framework with metrics such as task pass rate, relative performance, and time overhead shows that the top-performing model at the time of publication, Claude 3.5 Sonnet, achieves a 48.8\% completion rate on algorithm implementation and 21.6\% on Kaggle competitions. While \gls{ML}Algo-Bench evaluates model generation and model evaluation, it does not address data preparation or feature engineering as autonomous stages, nor does it assess agents operating \gls{ML} platforms through tool interfaces.
 
-In summary, existing \gls{ML} agent benchmarks evaluate agents on experimentation, engineering, and code generation tasks, but none assesses agents managing feature, training, and inference pipelines on a \gls{ML} platform. Furthermore, no benchmark compares agent performance across different tool types such as the \gls{MCP} and the \gls{CLI}, identifies the conditions under which each tool type is more suitable, or examines the role of skills in shaping agent behavior across these tool types.
-
-\subsubsection{Tool Design and Optimization}
-
-Existing research on tool design for \gls{LLM} agents focuses primarily on optimizing tool selection and context management as the number of available tools scales beyond the constraints of the context window.
-
-A first study delivers the first large-scale mixed-methods analysis of strategies that reconcile multi-\gls{MCP} autonomy with context limits~\cite{v_scaling_2025}. It benchmarks six optimization families, including baseline, \gls{RAG}-\gls{MCP}, contextual compression, hierarchical \gls{MCP} routing, adaptive chunking, and multi-agent coordination, across quantitative metrics and eight qualitative case studies. Experiments on TaskBench, \gls{MCP}-Radar, \gls{MCP}Eval, and \gls{BFCL} show a mean token reduction of 37\% and a mean accuracy gain of 23 percentage points. The study synthesizes a decision matrix and proposes a governance framework for enterprise deployments, positioning contextual compression combined with \gls{RAG}-\gls{MCP} as the current Pareto frontier for developers.
-
-MemTool introduces a short-term memory framework enabling \gls{LLM} agents to dynamically retrieve and manage tools or \gls{MCP} server contexts across multi-turn conversations~\cite{campos_memtool_2026}. It offers three agentic architectures: an autonomous agent mode granting full tool management autonomy, a workflow mode providing deterministic control, and a hybrid mode combining both. Evaluation across 12 \glspl{LLM} on Scale\gls{MCP}-334K, a benchmark of 334,685 tools, over 100 consecutive user interactions shows that reasoning \glspl{LLM} achieve high tool-removal efficiency of 90--94\% in autonomous mode, while medium-sized models exhibit significantly lower efficiency. Workflow and hybrid modes consistently manage tool removal effectively, whereas autonomous and hybrid modes excel at task completion.
-
-ScaleMCP proposes a tool selection approach that dynamically equips \gls{LLM} agents with an \gls{MCP} tool retriever and an auto-synchronizing tool storage pipeline through CRUD operations with \gls{MCP} servers as the single source of truth~\cite{v_scaling_2025}. It introduces Tool Document Weighted Average, an embedding strategy that selectively emphasizes critical components of tool documents during the embedding process. Evaluation on a dataset of 5,000 financial metric \gls{MCP} servers across ten \glspl{LLM}, five embedding models, and five retriever types demonstrates substantial improvements in tool retrieval and agent invocation performance.
-
-While these studies advance the optimization of tool selection and context management for \gls{LLM}-based agents, none compare agent performance across different tool types such as the \gls{MCP} and the \gls{CLI} or identify the conditions under which each is more suitable. Furthermore, no existing research addresses how \gls{CLI} tools should be constructed to be used effectively by coding agents operating \gls{ML} platforms, nor whether the effect of skills on agent performance differs between tool types.
+In summary, existing \gls{ML} agent benchmarks evaluate agents on experimentation, engineering, and code generation tasks, but none assesses agents managing feature, training, and inference pipelines on a \gls{ML} platform. No benchmark also compares agent performance across different tool types such as the \gls{MCP} and the \gls{CLI}, examines to what extent each interface type directs agents toward executing tasks on the remote platform rather than locally in Python, or evaluates whether skills can shift agents from local Python execution toward the remote \gls{ML} platform across tool types.
 
 \subsection{Summary}
 \glsresetall
 
 This chapter presented the foundational concepts and related work underpinning this thesis. The progression began with \gls{AI}, broadly defined as algorithms capable of performing tasks that typically require human intelligence, and narrowed to \gls{ML}, its subfield concerned with algorithms that learn to solve tasks from data without explicit programming. \Gls{ML} engineering introduced the practical principles governing effective model development, including the interplay of representation, evaluation, and optimization, the challenge of overfitting, and the structured \gls{AI} lifecycle spanning design, development, and deployment. \Gls{MLOps} then extended these principles to the operational level, drawing on DevOps practices such as \gls{CI/CD} to enable fast, reproducible, and reliable releases of \gls{ML} applications. \Gls{ML} platforms were presented as the infrastructure supporting these practices, with the Hopsworks Feature Store illustrating how feature pipelines, training pipelines, and inference pipelines can be organized around a centralized feature store with support for batch, streaming, and request-time computation.
+
 The chapter then examined \gls{DL}, the subset of \gls{ML} that learns hierarchical representations through multiple successive layers, reducing the need for manual feature engineering. Key architectures discussed included \glspl{RvNN} for hierarchical data, \glspl{RNN} and \glspl{LSTM} for sequential data, and \glspl{CNN} for spatially structured data. \Gls{GenAI} was introduced as the branch of \gls{DL} concerned with generating previously unseen synthetic content, tracing the evolution from early probabilistic models such as \glspl{RBM} and \glspl{DBN} through \glspl{VAE} and \glspl{GAN} to the transformer architecture, which replaced recurrent mechanisms with self-attention to enable parallelized training. \Glspl{LLM} were then presented as the class of transformer-based models capable of executing diverse \gls{NLP} operations, with key concepts including tokenization, attention mechanisms, \gls{RL} from human feedback, in-context learning, the constraints imposed by the context window, and the biases these models encode and propagate from their training data. Code generation models were discussed as \glspl{LLM} adapted or purpose-built for \gls{SWE} tasks, evaluated through benchmarks such as \gls{SWE}-bench, and situated within a broader ecosystem of model hubs, licensing frameworks, and reuse strategies. Vibe coding was introduced as the emerging development practice that leverages these models, characterized by conversational code generation, multimodal expression processing, and context-aware generation patterns. \Gls{AutoML} was then discussed as the automated construction of \gls{ML} pipelines on a limited computational budget, comprising data preparation, feature engineering, model generation, and model evaluation, with \gls{LLM} contributions reviewed across all four stages.
 
-The discussion then shifted to agents, beginning with intelligent agents defined by the properties of autonomy, social ability, reactivity, and proactiveness, and formalized through the \gls{BDI} model of beliefs, desires, and intentions. \Gls{DAI} and multi-agent systems extended these concepts to environments where multiple self-interested agents interact, introducing coordination through commitments and conventions, planning through shared and collaborative plans, and strategic interaction through utility functions, dominant strategies, and Nash equilibria. Software agents were presented as the practical translation of these theoretical foundations into autonomous programs operating within computational environments, classified into collaborative, interface, reactive, hybrid, and other types. Coding agents were then introduced as specialized \gls{LLM}-based software agents, consisting of planning, memory, perception, and action components, and capable of interpreting developer goals, generating code, and interacting with external tools. Context engineering was examined as the discipline of optimizing external context before presenting it to the model, encompassing techniques such as file ordering, chunking strategies, \gls{RAG}, and memory frameworks like Mem0. Tools were discussed beginning with self-supervised tool learning through Toolformer, progressing through fine-tuned tool-use models such as Gorilla and Tool\gls{LLM}, and culminating in the function calling paradigm and the \gls{MCP}, a universal open standard for defining, discovering, and invoking external tools that supports dynamic discovery, bi-directional communication, and access control. The \gls{CLI} was presented as a complementary tool interaction modality, tracing its origins from the Unix shell through the Bourne Shell and \gls{POSIX} standardization to \gls{BASH}, and reviewing research on natural language to \gls{BASH} translation and the design properties that account for the convergence of agentic coding tools on terminal-based interfaces. Skills were examined from their origins in robotics, where they were formalized as learned abilities to perform competent actions toward a goal, through their modern implementation as reusable behavioral abstractions encoded in natural language prompts and agentic coding manifests.
+The discussion then shifted to agents, beginning with intelligent agents defined by the properties of autonomy, social ability, reactivity, and proactiveness, and formalized through the \gls{BDI} model of beliefs, desires, and intentions. \Gls{DAI} and multi-agent systems extended these concepts to environments where multiple self-interested agents interact, introducing coordination through commitments and conventions, planning through shared and collaborative plans, and strategic interaction through utility functions, dominant strategies, and Nash equilibria. Software agents were presented as the practical translation of these theoretical foundations into autonomous programs operating within computational environments, classified into collaborative, interface, reactive, hybrid, and other types. Coding agents were then introduced as specialized \gls{LLM}-based software agents, consisting of planning, memory, perception, and action components, and capable of interpreting developer goals, generating code, and interacting with external tools. Context engineering was examined as the discipline of optimizing external context before presenting it to the model, encompassing techniques such as file ordering, chunking strategies, \gls{RAG}, and memory frameworks like Mem0. Tools were discussed beginning with self-supervised tool learning through Toolformer, progressing through fine-tuned tool-use models such as Gorilla and Tool\gls{LLM}, and culminating in the function calling paradigm and the \gls{MCP}, a universal open standard for defining, discovering, and invoking external tools that supports dynamic discovery, bi-directional communication, and access control. The \gls{CLI} was presented as a complementary tool interaction modality, tracing its origins from the Unix shell through the Bourne Shell and \gls{POSIX} standardization to \gls{BASH}, and reviewing research on natural language to \gls{BASH} translation. Skills were examined from their origins in robotics, where they were formalized as learned abilities to perform competent actions toward a goal, through their modern implementation as reusable behavioral abstractions encoded in natural language prompts and agentic coding manifests.
 
-The related work section examined three areas closely aligned with this research. The first addressed \gls{ML}, reviewing both agents and platforms. \Gls{ML} agents were examined as a class of \gls{LLM}-based systems that automate \gls{ML} workflows, varying in pipeline coverage, platform integration, and tool interface design. Existing approaches either cover the complete \gls{AutoML} pipeline without integration into a \gls{ML} platform, employ tools but are limited to a single interface type or pipeline stage, or integrate within platform architectures without standardized tool interfaces. The landscape of \gls{ML} platforms was also surveyed, encompassing leaders such as Databricks, Google Cloud, Microsoft Azure, and \gls{AWS}, as well as challengers, visionaries, and niche players. Across the platforms reviewed, 96.15\% offer a \gls{CLI}, 76.92\% provide \gls{MCP} connectivity, 23.03\% enable hosting \gls{MCP} server, 76.92\% support agent hosting, 38.46\% provide skills, and 31\% include agents that assist in operating the platform. Despite increasing adoption, the effectiveness of \gls{ML} agents in industry remains underexplored. Benchmarking was reviewed across four areas. Coding agent benchmarks span safety, data science, repository-level code generation, automated program repair, communication skills, and collaborative coding, but none evaluates agents performing \gls{ML} tasks on \gls{ML} platforms. \Gls{MCP} benchmarks assess general-purpose tool interaction, domain-specific applications, and security, but do not target \gls{ML} pipeline management or compare against alternative tool types. \Gls{CLI} benchmarks remain limited to Terminal-Bench 2.0, which includes several \gls{ML}-related tasks but does not comprehensively cover the \gls{AutoML} pipeline or evaluate agents operating \gls{ML} platforms. \Gls{ML} agent benchmarks evaluate experimentation, engineering, and code generation tasks but do not assess agents managing pipelines on \gls{ML} platforms through tool interfaces. Tool design research focuses on optimizing tool selection and context management at scale but does not address the design of tools, skills, or agentic coding manifests for coding agents operating \gls{ML} platforms.
+The related work section examined three areas closely aligned with this research: \gls{ML}, tool design and optimization, and benchmarks. The \gls{ML} subsection reviewed both agents and platforms. \Gls{ML} agents were examined as a class of \gls{LLM}-based systems that automate \gls{ML} workflows, varying in pipeline coverage, platform integration, and tool interface design. Existing approaches either cover the complete \gls{AutoML} pipeline without integration into a \gls{ML} platform, employ tools but are limited to a single interface type or pipeline stage, or integrate within platform architectures without standardized tool interfaces. The landscape of \gls{ML} platforms was also surveyed, encompassing leaders such as Databricks, Google Cloud, Microsoft Azure, and \gls{AWS}, as well as challengers, visionaries, and niche players. Across a total of 39 platforms, 84.21\% offer a \gls{CLI}, 57.89\% provide \gls{MCP} connectivity, 15.79\% enable hosting \gls{MCP} servers, 52.63\% support agent hosting, 28.95\% provide skills, and 28.95\% include agents that assist in operating the platform. Despite increasing adoption, the effectiveness of \gls{ML} agents in industry remains underexplored.
 
-Across these three areas, several gaps emerge. No study has examined how \gls{CLI} tools should be constructed to be used effectively by coding agents operating \gls{ML} platforms. No benchmark evaluates coding agents managing feature, training, and inference pipelines on a \gls{ML} platform. It is also unclear how \gls{CLI} tools compare against \gls{MCP} tools when solving the same ML tasks, and no guidance exists on the conditions under which each tool type is more suitable for coding agents operating \gls{ML} platforms. While there is empirical evidence that skills improve coding agent performance, it remains unclear whether this effect holds equally across tool types, and in the context of \gls{ML}. This thesis addresses these gaps by answering the following three \glspl{RQ}:
+Tool design and optimization research was then reviewed, focusing on strategies for managing tool selection and context as the number of available tools scales beyond the constraints of the context window. Existing studies advance optimization through retrieval-augmented \gls{MCP} routing, contextual compression, short-term memory frameworks, and embedding-based tool retrieval, but none compares \gls{MCP} and \gls{CLI} as alternative tool types for coding agents operating \gls{ML} platforms.
+
+Benchmarking was reviewed across five areas. Coding agent benchmarks span safety, data science, repository-level code generation, automated program repair, communication skills, and collaborative coding, but none evaluates agents performing \gls{ML} tasks on \gls{ML} platforms. \Gls{MCP} benchmarks assess general-purpose tool interaction, domain-specific applications, and security, but do not target \gls{ML} pipeline management. \Gls{CLI} benchmarks remain limited to Terminal-Bench 2.0, which includes several \gls{ML}-related tasks but does not comprehensively cover the \gls{AutoML} pipeline or evaluate agents operating \gls{ML} platforms. Direct comparisons between \gls{MCP} and \gls{CLI} are absent from the peer-reviewed literature, but practitioner discourse since August 2025 has converged on the position that interface choice is largely determined by tool design rather than the protocol itself, with reported \gls{CLI} advantages in token efficiency and reliability for inner-loop tasks and \gls{MCP} advantages in multi-user, multi-tenant deployments. None of these comparisons evaluate agents operating \gls{ML} platforms or examine the role of skills. \Gls{ML} agent benchmarks evaluate experimentation, engineering, and code generation tasks but do not assess agents managing pipelines on \gls{ML} platforms through tool interfaces.
+
+Across these three areas, three gaps emerge. First, no benchmark evaluates coding agents managing feature, training, and inference pipelines on a \gls{ML} platform, and no peer-reviewed study compares the performance of \gls{CLI} and \gls{MCP} tools on this task in terms of task success and token consumption. Second, it remains unclear to what extent each interface type directs coding agents toward executing tasks on the remote platform rather than locally in Python, and how this varies across \gls{ML} task categories. Third, while there is empirical evidence that skills improve coding agent performance, it remains unclear whether skills can shift agents from local Python execution toward the remote \gls{ML} platform, and whether this effect holds equally across \gls{CLI} and \gls{MCP} tools. This thesis addresses these gaps by answering the following three \glspl{RQ}:
 
 \glsresetall
 \begin{itemize}
-\item What are the design requirements for \glspl{CLI} invoked by coding agents operating \gls{ML} platforms, and how do they relate to the \gls{MCP} as a tool calling protocol?
-\item Which tool type, \gls{MCP} or \gls{CLI}, achieves a better trade-off between task success and token efficiency when coding agents manage feature, training, and inference pipelines on \gls{ML} platforms?
-\item How do skills influence the performance of coding agents orchestrating \gls{ML} platforms across different types of \gls{ML} tasks, and does this influence differ between \gls{CLI} and \gls{MCP} tools?
+\item Which tool type, \gls{MCP} or \gls{CLI}, achieves a better trade-off between task success and token consumption when coding agents manage feature, training, and inference pipelines on \gls{ML} platforms?
+\item To what extent do \gls{CLI} and \gls{MCP} tools direct coding agents toward executing tasks on the remote \gls{ML} platform rather than locally in Python, and how does this vary across \gls{ML} task categories?
+\item How effectively can skills shift coding agents from local Python execution toward the remote \gls{ML} platform, and does this effect differ between \glspl{CLI} and \gls{MCP} tools across \gls{ML} task categories?
 \end{itemize}
 
 \cleardoublepage
 
 \chapter{Method}
 
-The goal of the experiments conducted in this thesis is to answer the three \glspl{RQ} 
-defined in the previous chapter: the design requirements for \glspl{CLI} used by coding agents and their relation to \gls{MCP}, the comparison between \gls{CLI} and \gls{MCP} in terms of task success and token efficiency in \gls{MLOps}, and the effect of skills on agent performance across different tasks and interface types. These \glspl{RQ} are empirical in nature because the arguments raised so far are based on practitioner opinion rather than controlled evidence.
+\glsresetall
 
-To investigate the first \gls{RQ}, an exploratory search of practitioner discussions 
-is conducted to derive design patterns for \glspl{CLI} used by coding agents and to 
-identify when each tool type is most appropriate. For the second \gls{RQ}, these 
-patterns are combined with the Hopsworks Python \gls{SDK} to implement a \gls{CLI} 
-and a \gls{MCP} server, which are then used by OpenCode to execute tasks drawn from 
-\gls{MLE}-bench. Token consumption, completion time, task success, and the number of 
-turns in which the agent invokes Hopsworks rather than executing local Python code 
-are recorded and compared across both interfaces. For the third \gls{RQ}, the 
-results are analyzed to identify turns in which the agent bypassed Hopsworks in 
-favor of local Python execution. Skills are then derived from the Hopsworks 
-documentation to address these gaps, and the same tasks are rerun to measure 
-whether skills shift the agent toward greater Hopsworks use and how this affects 
-performance across interface types and task categories.
+The goal of the experiments conducted in this thesis is to answer the three \glspl{RQ} defined in the previous chapter: which tool type, the \gls{MCP} or the \gls{CLI}, achieves a better trade-off between task success and token consumption when coding agents manage feature, training, and inference pipelines on \gls{ML} platforms; to what extent the \gls{CLI} and \gls{MCP} tools direct coding agents toward executing tasks on the remote \gls{ML} platform rather than locally in Python, and how this varies across \gls{ML} task categories; and how effectively skills can shift coding agents from local Python execution toward the remote \gls{ML} platform, and whether this effect differs between \glspl{CLI} and \gls{MCP} tools across \gls{ML} task categories.
 
-This chapter begins by introducing experiments in \gls{SWE} as a research method and 
-defining the terminology and process used throughout this study. It then describes 
-the scoping of the experiments, which establishes the overall goal, object of study, 
-treatments, and purpose. The planning phase that follows specifies the context and 
-setup of the testing system, the generation of the two interfaces under comparison 
-through a search of design patterns and a prompt engineering step, the independent 
-and dependent variables, the hypotheses, the construction of skills, the experiment 
-design, the execution protocol, the stochasticity controls, the instrumentation, and 
-the four dimensions of validity. The chapter then turns to the operation of the 
-experiments, covering the implementation and preparation of the testing system, the execution of runs, and the validation of the collected data. It concludes with the analysis and interpretation of the results, which applies descriptive statistics and formal 
-hypothesis tests to the data and interprets the findings in light of the three 
-\glspl{RQ}.
+To investigate the first \gls{RQ}, design patterns extracted from the practitioner sources reviewed in the related-work chapter are combined with the Hopsworks Python \gls{SDK}~\cite{hopsworks_ab_logicalclockshopsworks-api_2026}, the Hopsworks documentation~\cite{hopsworks_ab_hopsworks_2026}, and Scale\gls{MCP}~\cite{marcelloni_scalemcp_2026} to generate a Hopsworks \gls{CLI} and a Hopsworks \gls{MCP} server using the coding agent OpenCode~\cite{anomaly_innovations_inc_anomalycoopencode_2026}. The two interfaces are then used by the coding agent to execute tasks drawn from \gls{MLE}-bench. In addition, a baseline condition is established in which OpenCode uses the Hopsworks Python \gls{SDK} directly by generating Python code guided solely by the Hopsworks documentation, providing a reference against which both interfaces are compared. Token consumption, task success, and the number of turns in which the agent invokes Hopsworks rather than executing local Python code are recorded and compared across the three conditions.
+
+For the second \gls{RQ}, the per-run breakdown of agent turns is analyzed to determine how often each interface type retains the agent on the remote platform rather than ceding execution to local Python, and how this varies across the eight \gls{ML} task categories.
+
+For the third \gls{RQ}, the results from the first phase are inspected to identify turns in which the coding agent bypassed Hopsworks in favor of local Python execution. Skills are then derived from the Hopsworks documentation to address these gaps, and the same tasks are rerun with skills enabled to measure whether skills shift the agent toward greater Hopsworks use and how this affects performance across interface types and task categories.
+
+This chapter begins by introducing experiments in \gls{SWE} as a research method and defining the terminology and process used throughout this study. It then describes the scoping of the experiments, which establishes the overall goal, subject and object of study, treatments, and purpose. The planning phase that follows describes the testing system, the construction of the two interfaces under comparison, the independent and dependent variables, the hypotheses, the experiment design including the skill-generation step that bridges its two phases, the execution protocol, the stochasticity controls, the instrumentation, and the four dimensions of validity. The chapter then turns to the operation of the experiments, covering the implementation and preparation of the testing system, the execution of runs, and the validation of the collected data. It concludes with the analysis and interpretation of the results, which applies descriptive statistics and formal hypothesis tests to the data and interprets the findings in light of the three \glspl{RQ}.
 
 \section{Experiments in Software Engineering}
 
-\glsresetall
-
-An experiment in \gls{SWE} is defined as ``an empirical enquiry that manipulates one factor or variable of the studied setting. Based on randomization, different treatments are applied to or by different subjects, while keeping other variables constant, and measuring the effects on the outcome variables. In human-oriented experiments, humans apply different treatments to objects, while in technology-oriented experiments, different technical treatments are applied to objects''~\cite{wohlin_experimentation_2024}. In essence, experiments are used to evaluate beliefs such as a theory or hypothesis by testing the relationship between a treatment and an outcome, thereby allowing researchers to draw conclusions about cause and effect \cite{bacon_novum_1995}.
+An experiment in \gls{SWE} is defined as ``an empirical enquiry that manipulates one factor or variable of the studied setting. Based on randomization, different treatments are applied to or by different subjects, while keeping other variables constant, and measuring the effects on the outcome variables. In human-oriented experiments, humans apply different treatments to objects, while in technology-oriented experiments, different technical treatments are applied to objects''~\cite{wohlin_experimentation_2024}. Experiments are used to evaluate beliefs such as a theory or hypothesis by testing the relationship between a treatment and an outcome, thereby allowing researchers to draw conclusions about cause and effect~\cite{bacon_novum_1995}.
 
 Central to any experiment is the distinction between two types of variables~\cite{wohlin_experimentation_2024}. Independent variables, also known as factors, are the variables in the process that are controlled and manipulated by the experimenter. Dependent variables, also known as response variables, are those whose values are observed and measured to study the effect of changes in the independent variables. An experiment studies the effect of changing one or more independent variables while all other independent variables are held at a fixed level. A treatment is one particular value of a factor, and the choice of which treatments to apply constitutes the experiment design. Treatments are applied to combinations of objects, i.e. the entities being studied, and subjects, i.e. the participants or tools applying or receiving the treatments, if any. An experiment consists of a set of tests, where each test is a unique combination of a treatment, a subject, and an object. The number of tests carried out directly affects the experimental error, which is the estimate of how precisely one can measure the mean effect of any experimental factor. The experimental error, in turn, determines the confidence that can be placed in the results.
 
@@ -974,128 +981,67 @@ The experiment process consists of five main phases~\cite{wohlin_experimentation
 
 The second phase is planning, in which the context is determined in detail, including the personnel involved and the environment. During planning, hypotheses are stated formally: the null hypothesis, which represents the default assumption of no effect, and the alternative hypothesis, which represents the expected effect. The independent and dependent variables are identified, and the experiment design is specified, including the instrumentation to be used. A critical aspect of planning is addressing validity, which has four dimensions. Internal validity concerns the reliability of the results and whether the observed effects can genuinely be attributed to the treatment rather than to confounding factors. External validity addresses how generalizable the results are beyond the specific experimental setting. Construct validity examines whether the treatment truly reflects the cause construct and whether the outcome adequately captures the effect construct. Conclusion validity concerns whether the observed relationship between treatment and outcome is statistically justified.
 
-The third phase is operation, which encompasses three activities: preparation, execution, and data validation. Preparation involves readying the subjects and materials for the experiment. Execution is the phase in which the experiment is conducted according to the plan and design. Data validation involves checking the collected data for correctness and completeness before analysis.
+The third phase is operation, which encompasses three activities: preparation, execution, and data validation. Preparation involves readying the subjects and materials for the experiment. During the execution phase the experiment is conducted. Data validation involves checking the collected data for correctness and completeness before analysis.
 
 The fourth phase is analysis and interpretation. In this phase, descriptive statistics are used to summarize the data, and the researcher considers whether the data set should be reduced, for example by removing outliers. A formal hypothesis test is then performed, and the results are interpreted. If the evidence is sufficient, the null hypothesis may be rejected in favor of the alternative hypothesis.
 
 The fifth and final phase is presentation and packaging, in which the results are documented and compiled into a complete laboratory package that allows others to understand, evaluate, and replicate the experiment.
 
-The remainder of this chapter applies the first four phases of this framework to 
-the experiments conducted in this study. The fifth phase, presentation and packaging, 
-is realized through this thesis itself.
+The remainder of this chapter applies the first four phases of this framework to the experiments conducted in this study. The fifth phase, presentation and packaging, is realized through this thesis itself.
 
 \section{Scoping the Experiments}
 
-The overall goal of the experiments is to empirically compare \gls{CLI}-based and 
-\gls{MCP}-based tool interfaces for coding agents operating Hopsworks, and to study 
-how the use of skills affects performance under each interface type. The object of 
-study is coding agents operating Hopsworks, specifically when executing feature 
-engineering, training, and inference tasks. The treatments correspond to the two 
-interface types under investigation, and the presence or absence of skills 
-constitutes a secondary treatment factor used in the second phase of the study. The 
-purpose is comparative, aiming to measure differences in task success, token 
-consumption, and completion time between the two interface types, as well as to 
-evaluate the effect of introducing skills.
+The overall goal of the experiments is to empirically compare \gls{CLI}-based and \gls{MCP}-based tool interfaces for coding agents operating Hopsworks, against a Python \gls{SDK} baseline, and to study how the use of skills affects performance under each interface type. The experiments require no human participants to apply treatments. The object of study is the coding agent OpenCode operating the \gls{MLOps} platform Hopsworks, specifically when executing feature engineering, training, and inference tasks.
 
-With the goal, object, treatments, and purpose established, the next phase 
-specifies how the experiments are structured to deliver on this scope.
+The primary subject of study is the open-source \gls{LLM} Kimi K2.6, served locally within Hopsworks~\cite{kimi_team_kimi_2026}. The closed-source \gls{LLM} Claude Opus 4.5, accessed via the Claude Platform~\cite{anthropic_pbc_introducing_2025}, is included as a secondary subject on a reduced subset of conditions. This asymmetry reflects budget constraints: an end-to-end run on Claude Opus 4.5 across all conditions would exceed the available \gls{API} budget for this thesis. The reduced Claude coverage is treated as a robustness check on the Kimi-based primary results rather than as the basis for between-model statistical comparison, and the limitation is revisited under external and conclusion validity.
 
+The treatments correspond to the two interface types under investigation, \glspl{CLI} and the \gls{MCP}, with Python code generated using the Hopsworks Python \gls{SDK} and documentation serving as a baseline against which both are compared. The presence or absence of skills constitutes a secondary treatment factor introduced in the second phase of the study. The purpose is comparative, aiming to measure differences in task success and token consumption between the two interface types relative to the baseline, as well as to evaluate the effect of introducing skills.
+
+With the goal, object, treatments, and purpose established, the next phase specifies how the experiments are structured to deliver on this scope.
 
 \section{Planning the Experiments}
 
-The planning phase defines how the experiments are structured to answer the three 
-\glspl{RQ} in a controlled and repeatable manner. It specifies the experimental 
-setup, variables, hypotheses, procedures, and instrumentation, ensuring that 
-observed differences can be attributed to the manipulated factors rather than 
-external variation.
+The planning phase defines how the experiments are structured to answer the three \glspl{RQ} in a controlled and repeatable manner. It specifies the experimental setup, variables, hypotheses, procedures, and instrumentation, ensuring that observed differences can be attributed to the manipulated factors rather than to external variation.
 
-The first element of the plan is the context within which the experiments are 
-conducted, including the infrastructure on which the testing system runs and the 
-subjects and objects to which treatments are applied.
+Planning begins by describing the testing system in which the experiments are conducted, including the infrastructure on which it runs and the components that make up the environment under evaluation.
 
-\subsection{Context and Setup}
+\subsection{Testing System}
 
-The experiments are conducted within a controlled software-based testing system 
-designed to evaluate coding agents operating in an \gls{MLOps} environment. The 
-system defines the environment under evaluation, the subjects, and the objects of 
-study, and provides the infrastructure required to execute repeated runs under 
-consistent conditions. Figure~\ref{fig:mlops-agent} shows the architecture and the 
-components that make up the system.
+The experiments are conducted within a controlled software-based testing system designed to evaluate coding agents operating in an \gls{MLOps} environment. The system defines the environment under evaluation, the subjects, and the objects of study, and provides the infrastructure required to execute repeated runs under consistent conditions. Figure~\ref{fig:mlops-agent} shows the architecture and the components that make up the system.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{thesis/img/mlops-agent.png}
+    \includegraphics[width=1\linewidth]{thesis/img/mlops-agent.drawio.png}
     \caption{Architecture of the testing system}
     \label{fig:mlops-agent}
 \end{figure}
 
-All components are deployed on Snurren, a \gls{GPU} development and testing cluster 
-used by Hopsworks for internal experimentation and system development. The 
-infrastructure stack is organized into four layers. At the hardware layer, the 
-cluster is equipped with four NVIDIA \gls{RTX} A6000 \glspl{GPU}. A \gls{GPU} is a 
-specialized processor that performs many parallel operations simultaneously and is 
-widely used to accelerate the computations that dominate \gls{ML} training and 
-inference workloads~\cite{harris_array_2020}. NVIDIA \gls{RTX} refers to a family of \glspl{GPU} that 
-combine general-purpose parallel computation with hardware support for \gls{AI} and 
-graphics workloads~\cite{nvidia_corporation_nvidia_2026}. At the \gls{OS} layer, the cluster runs Ubuntu, a 
-Linux-based operating system used to manage hardware and system resources~\cite{canonical_ltd_enterprise_2026}. Linux is 
-an open-source operating system kernel that manages hardware resources and provides 
-the foundation on which user-facing software runs~\cite{torvalds_torvaldslinux_2026}. At the orchestration 
-layer, Kubernetes runs on top of Ubuntu and serves as the container orchestration 
-platform used to deploy and manage distributed applications across the 
-cluster~\cite{the_kubernetes_authors_kuberneteskubernetes_2026}. At the application layer, the testing system is deployed as a 
-Kubernetes pod named \texttt{mlops-agent}, located in a dedicated namespace named 
-\texttt{mlops-agent-\gls{NS}}. A pod is the smallest deployable unit in Kubernetes 
-and consists of one or more containers that share storage, network, and a 
-specification for how to run~\cite{the_kubernetes_authors_pods_2026}. A \gls{NS} is a logical partition within a 
-Kubernetes cluster used to scope and isolate resources such as pods and 
-services~\cite{the_kubernetes_authors_namespaces_2026}.
+All components are deployed on \texttt{Snurran}, a \gls{GPU} development and testing cluster used by Hopsworks for internal experimentation and system development. A cluster is a set of compute, storage and networking resources that set the logical boundaries of a platform. The cluster is organized into four layers: hardware, operating system, orchestration, and application platform.
 
-At the center of the testing system is OpenCode, a coding agent that 
-executes tasks by interacting with tools and external systems~\cite{anomaly_innovations_inc_anomalycoopencode_2026}. It receives 
-tasks from \gls{MLE}-bench and executes them by interacting with Hopsworks, which 
-runs within the same cluster and provides the \gls{MLOps} environment used for 
-feature engineering, training, and inference. These interactions are performed 
-through one of two interfaces, hops-\gls{CLI} or hops-\gls{MCP}. Skills are stored 
-as a separate artifact called hops-skills within the agent environment, and are 
-loaded into OpenCode to guide its behavior during execution. The coordinator manages the execution of experiments by assigning tasks, controlling run 
-configurations, and tracking execution progress across the system.
+At the hardware layer, the cluster is equipped with four \texttt{NVIDIA \gls{RTX} A6000} \glspl{GPU}. A \gls{GPU} is a specialized processor that performs many parallel operations simultaneously and is widely used to accelerate the computations that dominate \gls{ML} training and inference workloads~\cite{harris_array_2020}. NVIDIA \gls{RTX} refers to a family of \glspl{GPU} that combine general-purpose parallel computation with hardware support for \gls{AI} and graphics workloads~\cite{nvidia_corporation_nvidia_2026}.
 
-Model access is handled through Lite\Gls{LLM}, a routing and abstraction layer that 
-provides a unified interface for interacting with multiple \glspl{LLM}~\cite{litellm_berriailitellm_2026}. All 
-model requests from OpenCode are routed through Lite\gls{LLM} to the configured 
-\gls{LLM}. Lite\gls{LLM} also forwards all requests and responses to Langfuse, a 
-logging and observability system used to track token usage, metadata, and execution 
-traces for \gls{LLM} calls~\cite{langfuse_gmbh_langfuselangfuse_2026}. Hugging Face, an online platform that hosts 
-open-source machine learning models, datasets, and tools~\cite{hugging_face_inc_hugging_2026}, provides the model 
-weights for Kimi K2.6, which are loaded into the Hopsworks deployment, while the 
-Claude Platform hosts Claude Opus 4.7.
+At the \gls{OS} layer, the cluster runs \texttt{Ubuntu}, a distribution of Linux used to manage hardware and system resources~\cite{canonical_ltd_enterprise_2026}. Linux is an open-source operating system kernel that manages hardware resources and provides the foundation on which user-facing software runs~\cite{torvalds_torvaldslinux_2026}.
 
-The experiments are conducted entirely in software and require no human participants 
-to apply treatments. The subjects are two \glspl{LLM}, Kimi K2.6 and Claude Opus 4.7, 
-selected as recent \gls{SOTA} models from the open-source and closed-source segments 
-of the \gls{LLM} landscape~\cite{openrouter_inc_kimi_2026}. Kimi K2.6 is open-source and runs within 
-Hopsworks, while Claude Opus 4.7 is closed-source and is accessed via the 
-Claude Platform~\cite{kimi_team_kimi_2026, anthropic_pbc_introducing_2026}. The objects are eight Kaggle competitions sourced from 
-\gls{MLE}-bench~\cite{chan_mle-bench_2025}, listed in Table~\ref{tab:mle-bench-tasks}, covering seven \gls{ML} 
-task categories. Image classification refers to assigning a discrete category to an 
-input image. Image-to-image translation refers to mapping an input image to an 
-output image, such as denoising or style transfer. Text classification refers to 
-assigning a discrete category to an input text. Image regression refers to 
-predicting a continuous-valued target from an input image. Audio classification 
-refers to assigning a discrete category to an input audio signal. Tabular prediction 
-refers to predicting a target value from structured tabular features. 
-Sequence-to-sequence generation refers to mapping an input sequence to an output 
-sequence of potentially different length, such as machine translation or text 
-summarization.
+At the orchestration layer, \texttt{Kubernetes} runs on top of Ubuntu and serves as the orchestration platform used to deploy and manage distributed applications across the cluster~\cite{the_kubernetes_authors_kuberneteskubernetes_2026}. A pod is the smallest deployable unit in Kubernetes and consists of one or more applications that share storage, network, and a specification for how to run~\cite{the_kubernetes_authors_pods_2026}. A service exposes one or more pods across the cluster network~\cite{the_kubernetes_authors_service_2026}.
+
+At the application platform layer, Hopsworks is deployed. The testing system within Hopsworks is composed of the four Kubernetes services \texttt{jupyter}, \texttt{hopsworks}, \texttt{OpenSearch}, and \texttt{Kibana}, together with the \texttt{terminal} and the distributed file system \texttt{HopsFS}. While Hopsworks consists of many more pods and services than depicted, the architecture diagram in Figure~\ref{fig:mlops-agent} only displays those components that are fundamental to the experiments conducted in this thesis.
+
+At the center of the testing system is the \texttt{terminal}, which gives users of Hopsworks the ability to interact with the platform via a \gls{CLI}~\cite{hopsworks_ab_machine_2026, hopsworks_ab_build_2026}. Four applications are installed inside the terminal: the \texttt{coordinator}, \texttt{OpenCode}, \texttt{MLE-bench}, and \texttt{LiteLLM}. The coordinator manages experiment execution by \emph{instructing} OpenCode, controlling run configurations, tracking progress, and \emph{saving results in} \texttt{results.\gls{CSV}}. \texttt{OpenCode} is an open-source and provider-agnostic coding agent that executes tasks by interacting with tools and external systems~\cite{anomaly_innovations_inc_anomalycoopencode_2026}. \gls{MLE}-bench is a benchmark introduced by \gls{OpenAI} that evaluates the \gls{MLE} capabilities of \gls{AI} agents and \emph{provides tasks to} OpenCode~\cite{chan_mle-bench_2025}. Lite\gls{LLM} is an open-source abstraction layer that standardizes programmatic access to heterogeneous \glspl{LLM} through a unified, \gls{OpenAI}-compatible \gls{API}, and \emph{serves models to} OpenCode~\cite{litellm_berriailitellm_2026}.
+
+OpenCode \emph{generates} two Hopsworks interfaces, the \gls{CLI} \texttt{hops-CLI} and the \gls{MCP} server \texttt{hops-MCP}, which are then installed in the terminal alongside the pre-existing Python \gls{SDK} \texttt{hopsworks}. Once installed, OpenCode \emph{invokes} all three interfaces, which in turn \emph{operate} the Kubernetes service \texttt{hopsworks}, through which the platform itself is controlled.
+
+The distributed \gls{FS} \texttt{Hops\gls{FS}}, on which Hopsworks relies~\cite{de_la_rua_martinez_hopsworks_2024}, stores all files required for the experiments. The \gls{IPYNB} \texttt{analysis.\gls{IPYNB}} \emph{analyzes} the \gls{CSV} file \texttt{results.\gls{CSV}} and is itself \emph{hosted in} the Kubernetes service \texttt{jupyter}. The \gls{MD} files \texttt{CLI\_gen.\gls{MD}} and \texttt{MCP\_gen.\gls{MD}} contain the instructions used to generate \texttt{hops-\gls{CLI}} and \texttt{hops-\gls{MCP}}, respectively, and both reference a local copy of the Hopsworks documentation, \texttt{logicalclocks.github.io}, which is also stored in Hops\gls{FS}. The file \texttt{MLE\_exec.\gls{MD}} contains the instructions to run individual \gls{MLE} tasks, and \texttt{hops-skills.\gls{MD}} stores skills that guide OpenCode's behavior. All four \gls{MD} files are \emph{provided to} OpenCode.
+
+Two \glspl{LLM} are made available to OpenCode through Lite\gls{LLM}. The weights of the locally hosted model \texttt{Kimi K2.6} are \emph{stored} on \texttt{Hugging Face}, a public repository for machine learning models and datasets~\cite{hugging_face_inc_hugging_2026}, downloaded into Hops\gls{FS}, and \emph{served} to OpenCode \emph{via} Lite\gls{LLM}. The remotely hosted model \texttt{Claude Opus 4.5} is hosted on the \texttt{Claude Platform}, Anthropic's hosted service for accessing its \glspl{LLM} via \gls{API}~\cite{anthropic_pbc_claude_2026}, and likewise \emph{served via} Lite\gls{LLM}. Lite\gls{LLM} \emph{logs} all model invocations, including per-call token usage and cost, \emph{to} the Kubernetes service \texttt{OpenSearch}. The \texttt{coordinator} \emph{queries} OpenSearch to retrieve token usage and cost for each run, and \texttt{Kibana} also \emph{queries} OpenSearch for manual inspection of model invocations.
+
+In addition to the two \glspl{LLM} as research subjects, the specific research objects are eight Kaggle competitions sourced from \gls{MLE}-bench~\cite{chan_mle-bench_2025}, listed in Table~\ref{tab:mle-bench-tasks}, spanning seven \gls{ML} task categories. In all cases, OpenCode generates and executes code to build, train, and evaluate task-specific \gls{ML} models within an \gls{MLE} workflow. The seven task categories are defined as follows. \emph{Image classification} refers to assigning a discrete category to an input image. \emph{Image-to-image translation} refers to mapping an input image to an output image, as in denoising or style transfer. \emph{Text classification} refers to assigning a discrete category to an input text. \emph{Image regression} refers to predicting a continuous-valued target from an input image. \emph{Audio classification} refers to assigning a discrete category to an input audio signal. \emph{Tabular prediction} refers to predicting a target value from structured tabular features. \emph{Sequence-to-sequence generation} refers to mapping an input sequence to an output sequence of potentially different length, as in machine translation or text summarization.
 
 \begin{table}[H]
     \centering
-    \small
-    \setlength{\tabcolsep}{4pt}
+    \resizebox{\textwidth}{!}{%
     \begin{tabular}{p{6.5cm}p{4cm}r}
         \toprule
-        \textbf{Competition} & \textbf{Task category} & \textbf{Bronze} \\
+        \textbf{Competition} & \textbf{Task category} & \textbf{Dataset size in \gls{GB}} \\
         \midrule
         aerial-cactus-identification & Image classification & 0.0254 \\
         denoising-dirty-documents & Image-to-image & 0.06 \\
@@ -1106,218 +1052,145 @@ summarization.
         tabular-playground-series-dec-2021 & Tabular & 0.7 \\
         text-normalization-challenge-english-language & Sequence-to-sequence & 0.01 \\
         \bottomrule
-    \end{tabular}
-    \caption{Kaggle competitions selected from \gls{MLE}-bench, with the 
-    corresponding \gls{ML} task category and bronze medal score threshold.}
+    \end{tabular}%
+    }
+    \caption{Kaggle competitions selected from \gls{MLE}-bench, with the corresponding \gls{ML} task category and dataset size in \gls{GB}.}
     \label{tab:mle-bench-tasks}
 \end{table}
 
-With the testing system in place, the next planning element is the construction of 
-the two interfaces under comparison.
+With the testing system in place, the next planning element is the construction of the two interfaces under comparison.
 
-\subsubsection{Interface Design Patterns}
+\subsection{Interface Construction}
 
-A structured keyword search is conducted using Google Search and Hacker News. Hacker 
-News is a social news website operated by Y Combinator on which users submit and 
-discuss links related to computer science, software engineering, and technology, and 
-which serves as a primary venue for practitioner discussion in these areas~\cite{y_combinator_management_llc_hacker_2026}. 
-Y Combinator is a startup accelerator that provides early-stage funding and 
-mentorship to technology companies and operates Hacker News as part of its broader 
-engagement with the technology community~\cite{y_combinator_management_llc_y_2026}. The queries are 
-\texttt{"MCP AND CLI"}, \texttt{"model context protocol" AND MLOps}, and 
-\texttt{CLI AND (agent OR agentic)}. The first query targets practitioner 
-discussion on \gls{CLI} and \gls{MCP}. The second focuses on \gls{MCP} usage in 
-\gls{MLOps}. The third targets \gls{CLI} design for agentic systems. 
-The first five result pages are reviewed per query for both Google Search and Hacker 
-News, due to time constraints and diminishing returns in relevance beyond this range. 
-For Hacker News, all discussions returned within these five pages are inspected, 
-including linked external sources referenced within those discussions. Ranking order 
-is not used in selection.
+The two interfaces under comparison, \texttt{hops-\gls{CLI}} and \texttt{hops-\gls{MCP}}, are not authored by hand but generated by OpenCode from a structured set of inputs. Construction draws on three sources: design patterns extracted from the practitioner sources reviewed in the related-work chapter, the Hopsworks documentation describing the platform's capabilities, and the Scale\gls{MCP} design recommendations for \gls{MCP} servers~\cite{marcelloni_scalemcp_2026}.
 
-Relevant sources are screened, non-English results are filtered, and duplicates are 
-removed. Design patterns are extracted through qualitative coding of the selected 
-material. The coding process is used to identify recurring structures in agent 
-interaction design for both \gls{CLI} and \gls{MCP} systems, as well as criteria for 
-distinguishing when each interface type is appropriate.
+The design patterns extracted from the practitioner sources concern the stylistic surface that each interface presents to the coding agent rather than the underlying capabilities exposed. Table~\ref{tab:design-patterns} lists the candidate patterns identified from the practitioner sources, the rationale provided in those sources, and the decision to include or exclude each pattern in the prompts that drive interface generation. Patterns concerning multi-user authorization, tenant isolation, and audit trails are excluded because the experimental setup is single-user and out of scope for the \glspl{RQ}. Patterns concerning code-execution paradigms beyond the \gls{CLI} and the \gls{MCP}, such as the Code Mode pattern, are also excluded as they fall outside the comparison framing. Where sources disagreed, such as the position taken in~\cite{chen_mcp_2026} that bespoke \glspl{CLI} are not meaningfully more efficient than the \gls{MCP} schema, the corresponding patterns are still included on the grounds that the practitioner consensus on those points remains contested and the experiment is intended to test, not assume, the resulting trade-offs.
 
-These patterns inform the prompts that drive the generation of the two interfaces.
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{p{4.5cm}p{6cm}p{1.5cm}p{4cm}}
+        \toprule
+        \textbf{Pattern} & \textbf{Rationale} & \textbf{Included} & \textbf{Justification} \\
+        \midrule
+        Progressive capability discovery via \texttt{--help} & Defers schema cost from session start to invocation~\cite{yilmaz_i_2026, zechner_what_2025, amzani_your_2026, madabhushi_mcp_2026, chen_mcp_2026, cohen_mcp_2026} & Yes & Stylistic surface; directly relevant to \gls{RQ}1 token consumption. \\
+        Concise tool descriptions, documentation on demand & Reduces upfront schema injection through a small system prompt and on-demand reference material~\cite{zechner_what_2025, yilmaz_i_2026, madabhushi_mcp_2026, amzani_your_2026, cohen_mcp_2026} & Yes & Stylistic surface; directly relevant to \gls{RQ}1 token consumption. \\
+        Few tools or single dispatch tool per server & Reduces tool-count overhead and avoids agent confusion from large tool surfaces~\cite{zechner_mcp_2025, zechner_what_2025, madabhushi_mcp_2026, amzani_your_2026, cohen_mcp_2026} & Yes & Stylistic surface; directly relevant to \gls{RQ}1 token consumption for the \gls{MCP} server. \\
+        Selective output sizing & Avoids comprehensive bulk responses that inflate context, by allowing the agent to request specific data~\cite{kumak_mcp_2025, zechner_mcp_2025, amzani_your_2026} & Yes & Stylistic surface; directly relevant to \gls{RQ}1 token consumption. \\
+        Predictable output sizing through limits and pagination & Allows agents to estimate token impact before invocation~\cite{kumak_mcp_2025} & Yes & Stylistic surface; supports stable cross-task comparison. \\
+        Machine-parseable output (\gls{JSON} or plain text in non-\gls{TTY} contexts) & Removes the need for the agent to parse formatted prose~\cite{amzani_your_2026, zechner_mcp_2025} & Yes & Stylistic surface; reduces parsing overhead per turn. \\
+        Composability via Unix piping & Allows outputs to be filtered, transformed, and combined through standard shell mechanisms without further \gls{LLM} round trips~\cite{zechner_what_2025, kumak_mcp_2025, schmitt_mcp_2026} & Yes & Stylistic surface for the \gls{CLI}; structurally unavailable for the \gls{MCP}. \\
+        Structural permission classification (read auto-approved, write prompts, delete blocked) & Provides protection against prompt injection by enforcing operation boundaries in the binary~\cite{amzani_your_2026} & No & Behavioural rather than stylistic; would impose capability constraints that confound the comparison. \\
+        Full capability coverage of the underlying system & Exposes the complete surface of the underlying platform rather than a curated subset~\cite{kumak_mcp_2025, schmitt_mcp_2026} & No & Capability concern rather than stylistic; would alter what each interface can do and confound the comparison. \\
+        Stateful sessions across calls & Allows the interface to maintain state between invocations for multi-step workflows~\cite{schmitt_mcp_2026} & No & Each experimental run uses one isolated project with no cross-call state; this distinction does not apply. \\
+        Per-user \gls{OAuth}, tenant isolation, and audit trails & Required for multi-user, multi-tenant deployments~\cite{madabhushi_mcp_2026, chen_mcp_2026} & No & Out of scope; experiments are single-user. \\
+        Centralized telemetry and observability & Enables organizational tool-usage measurement~\cite{chen_mcp_2026} & No & Organizational concern; out of scope for single-user experiments. \\
+        Code Mode (agent writes orchestration scripts that invoke structured tools) & Outperforms both \gls{CLI} and \gls{MCP} on multi-step workflows on the cited benchmark~\cite{amzani_your_2026} & No & Distinct paradigm; outside the \gls{CLI}/\gls{MCP} comparison. \\
+        \bottomrule
+    \end{tabular}%
+    }
+    \caption{Design patterns extracted from the practitioner sources, with the rationale provided in those sources and the inclusion decision for the prompts that drive interface generation.}
+    \label{tab:design-patterns}
+\end{table}
 
-\subsubsection{Prompt Engineering}
+The included patterns are encoded in \texttt{CLI\_gen.\gls{MD}} for generating the \gls{CLI} interface, while the design recommendations from Scale\gls{MCP} are encoded in \texttt{MCP\_gen.\gls{MD}} for generating the \gls{MCP} server. A third prompt, \texttt{MLE\_exec.\gls{MD}}, instructs OpenCode on how to execute individual \gls{MLE} tasks. These three prompts are sufficient to generate the interfaces and to drive task execution.
 
-The extracted patterns are used to construct two prompts: one for generating the 
-\gls{CLI} interface and one for generating the \gls{MCP} server. The \gls{CLI} 
-prompt incorporates \gls{CLI}-specific interaction patterns, while the \gls{MCP} 
-prompt incorporates the Scale\gls{MCP} framework~\cite{marcelloni_scalemcp_2026}. 
-Both prompts share the same Hopsworks source material and differ only in 
-interface-specific design constraints.
-
-With the two interfaces in place, the experiments can compare them under controlled 
-conditions. The variables that are manipulated and measured during this comparison 
-are defined next.
+With the interfaces constructed, the next step is to define the variables that the experiments manipulate and measure.
 
 \subsection{Variables}
 
-The independent variables are interface type, with two levels \gls{CLI} and 
-\gls{MCP}, and skill usage, with two levels without skills and with skills examined 
-in the second phase of the experiment. The \gls{LLM} backend is treated as an 
-additional factor with two levels Kimi K2.6 and Claude Opus 4.7. The \gls{ML} task 
-category is treated as a blocking variable.
+The independent variables are \emph{interface type}, with two levels (\gls{CLI} and \gls{MCP}) compared against a Python \gls{SDK} baseline, and \emph{skill usage}, with two levels (without skills and with skills), the latter examined in the second phase of the experiment. The \emph{\gls{LLM} backend} is treated as a secondary factor with two levels (Kimi K2.6 and Claude Opus 4.5), with Claude Opus 4.5 covering only a reduced subset of conditions due to budget constraints. The \emph{\gls{ML} task category} is varied across the eight \gls{MLE}-bench tasks, with each task contributing one observation per condition under Kimi K2.6.
 
-The dependent variables are task success measured as the \gls{MLE}-bench raw 
-competition score and medal classification, token consumption per run, task 
-completion time as wall-clock time per run, and platform usage measured as the 
-number of agent turns in which the agent invokes a Hopsworks platform operation 
-through the assigned interface rather than executing local Python code. All other 
-factors, including prompts, agent configuration, decoding parameters, and execution 
-environment, are held constant to isolate the effects of the independent variables.
+The dependent variables are \emph{task success}, measured as the \gls{MLE}-bench raw competition score and the resulting medal classification; \emph{token consumption} per run; and \emph{platform usage}, measured as the number of agent turns in which the agent invokes a Hopsworks platform operation through the assigned interface rather than executing local Python code.
 
-These variables enable the formal statement of the hypotheses that the experiments 
-test.
+All other factors, including prompts, agent configuration, decoding parameters, wall-clock time limit, and execution environment, are held constant to isolate the effects of the independent variables. These variables enable the formal statement of the hypotheses that the experiments test.
 
 \subsection{Hypotheses}
 
-For the interface comparison, the null hypothesis states that there is no difference 
-between \gls{CLI} and \gls{MCP} in terms of task success, token consumption, or 
-completion time. The alternative hypothesis states that at least one of these 
-metrics differs between the two interface types. For the skills evaluation, the null 
-hypothesis states that adding skills does not change agent performance under either 
-interface. The alternative hypothesis states that skills change performance and that 
-the effect may vary across interface types and task categories.
+For the interface comparison, the null hypothesis states that there is no difference between \gls{CLI} and \gls{MCP} in terms of task success or token consumption, and that neither differs from the Python \gls{SDK} baseline. The alternative hypothesis states that at least one of these metrics differs systematically between the two interface types or relative to the baseline, with the strength of evidence assessed descriptively given the absence of replication in the design.
 
-Testing these hypotheses requires a design that arranges the variables into a 
-concrete set of runs.
+For the skills evaluation, the null hypothesis states that adding skills does not change agent performance under either of the two skill-applicable interfaces. The alternative hypothesis states that skills change performance, and that the effect may vary across interface types and task categories.
+
+Testing these hypotheses requires a design that arranges the variables into a concrete set of runs.
 
 \subsection{Experiment Design}
 
-The experiments are organized into two sequential phases. The first phase compares 
-the two interface types without skills, varying interface type, \gls{LLM} backend, 
-and task category, and replicating each combination three times. This yields 
-$2 \times 2 \times 8 \times 3 = 96$ tests in the first phase.
+The experiments are organized into two sequential phases: an interface comparison without skills, followed by a skills evaluation in which skills are enabled for the two skill-applicable interfaces. Between the two phases, a skill set is constructed from observations made during the first phase. The skill condition is therefore a between-phase factor rather than a within-phase factor. Run order across the full set of treatment combinations is randomized using a fixed random seed, to reduce ordering effects while preserving reproducibility of the run schedule. The randomization is applied once across the entire experiment rather than re-applied per phase, interface, or model. Each run follows a fixed protocol that ensures it is executed under the same conditions.
 
-Between the two phases, a static skill set is produced through a two-step process. 
-An initial skill set is first generated from the Hopsworks documentation, encoding 
-the platform operations and recommended usage patterns that the agent is expected 
-to apply when solving \gls{ML} tasks. The runs from the first phase are then 
-analyzed to identify turns in which the agent executed local Python code rather 
-than invoking the corresponding Hopsworks operation through the assigned interface. 
-Each such instance is matched to the appropriate Hopsworks endpoint, and the 
-initial skills are extended where coverage is missing.
+The experiment is structured around full coverage on Kimi K2.6 and a reduced coverage on Claude Opus 4.5. Each treatment combination is repeated three times to enable estimation of within-cell variance attributable to \gls{LLM} non-determinism and to support statistical comparison between conditions. Full Kimi coverage comprises the two interfaces and the \gls{SDK} baseline crossed with the eight \gls{MLE}-bench tasks across both phases, yielding $(3 \times 8 + 2 \times 8) \times 3 = 120$ Kimi runs. Reduced Claude coverage spans the same interfaces and tasks but is restricted to a subset that fits within the available \gls{API} budget; the exact subset is fixed before execution and selected to span all task categories, with three repetitions retained per cell. The total run count therefore reflects full Kimi coverage plus the budgeted Claude subset, and is reported in full alongside the results.
 
-The second phase repeats the same set of treatment combinations with the resulting 
-skill set enabled, yielding a further $96$ tests. The skill condition is therefore 
-a between-phase factor rather than a within-phase factor, since the skill set used 
-in the second phase is itself derived from analysis of the first phase. In total, 
-the design comprises $192$ tests. The three repetitions per cell allow within-cell 
-variance to be estimated and provide a basis for assessing the stability of results 
-in the presence of \gls{LLM} non-determinism.
+\subsubsection{Interface Comparison}
 
-Each of these tests follows a fixed protocol that ensures runs are executed under 
-the same conditions.
+The first phase crosses the two interface types (\gls{CLI} and \gls{MCP}) and the Python \gls{SDK} baseline with the eight \gls{MLE}-bench tasks under Kimi K2.6, without skills, with three repetitions per cell, yielding $3 \times 8 \times 3 = 72$ runs. The Claude subset for this phase is run under the same task and interface combinations with three repetitions per cell, within the available \gls{API} budget. This phase produces the data used to test the interface-comparison hypothesis, and the agent traces collected during it inform the construction of the skill set used in the second phase.
+
+The traces collected during this phase are then analyzed to derive the skill set that distinguishes the second phase from the first.
+
+\subsubsection{Skill Generation}
+
+Between the two phases, a static skill set is produced separately for each interface based on the first-phase results. Agent executions from the first phase are analyzed via the OpenSearch logs through Kibana to identify instances in which the agent resorted to local Python code instead of invoking the corresponding Hopsworks operation through the given interface. Because each cell is repeated three times, instances of local Python execution are aggregated across all repetitions of a given interface and task before being matched to a Hopsworks endpoint. Each such instance reveals a gap in interface coverage: it is matched to the appropriate Hopsworks endpoint, and a corresponding skill is added to the skill set. The resulting artifact, \texttt{hops-skills.\gls{MD}}, is then provided to OpenCode for the second phase.
+
+With the skill set in place, the second phase reruns the two skill-applicable interfaces under otherwise identical conditions to isolate its effect.
+
+\subsubsection{Skill Evaluation}
+
+The second phase repeats the same combinations for the \gls{CLI} and \gls{MCP} interfaces only under Kimi K2.6, with skills enabled, since skills are defined as redirections away from local Python and therefore do not apply to the \gls{SDK} baseline. With three repetitions per cell, this yields a further $2 \times 8 \times 3 = 48$ runs under Kimi K2.6. The Claude subset for this phase mirrors the structure of the first-phase Claude subset, with three repetitions per cell, under the same budget constraint. This phase produces the data used to test the skills-evaluation hypothesis.
+
+With the design in place, the next planning element is the protocol that governs each individual run.
 
 \subsection{Execution Protocol}
 
-Each run is executed according to a fixed protocol. The \texttt{mlops-agent} pod is reset before each run so that no artifacts persist from 
-previous runs and OpenCode starts each run from a clean state. Each run is assigned 
-its own dedicated Hopsworks project, which isolates the data, features, models, and 
-other platform artifacts produced during the run from those of any other run. The 
-\gls{MLE}-bench task description, dataset, and validation tooling are made 
-available in the workspace. The agent is instructed to produce a 
-\texttt{submission.csv} file for the assigned competition and is given access to 
-Hopsworks exclusively through the assigned interface. No other external tools are 
-provided. A timestamp is recorded at the start of the run. Each run has a 
-wall-clock time limit of two hours, which is the only stopping condition imposed. 
-Within this limit the agent operates autonomously and is free to retry, recover 
-from failures, and revise its approach as many times as it sees fit. A run 
-terminates when the agent finishes on its own or when the two-hour limit is 
-reached. A final timestamp and total token count are recorded at termination.
+The coordinator starts each run and assigns it its own dedicated Hopsworks project, which isolates the data, features, models, and other platform artifacts produced during the run from those of any other run. Each repetition of a given treatment combination is executed as an independent run with its own project, so that no state carries over between repetitions. The \gls{MLE}-bench task description, dataset, and validation tooling are made available in the workspace. The agent is given access to Hopsworks exclusively through the assigned interface; no other external tools are provided. A timestamp is recorded at the start of the run. The coordinator appends the run's results to \texttt{results.\gls{CSV}}, which is added to each new project so that results are collected across all runs within Hopsworks.
 
-Run order across the full set of treatment combinations is randomized using a fixed 
-random seed to reduce ordering effects while preserving reproducibility of the run 
-schedule. The randomization is applied once across the entire experiment rather 
-than re-applied per interface or model.
+Each run has a wall-clock time limit of two hours, which is the only stopping condition imposed. Within this limit, the agent operates autonomously and is free to retry, recover from failures, and revise its approach as many times as it sees fit. A run terminates when the agent finishes on its own or when the two-hour limit is reached. A final timestamp and total token count are recorded at termination.
 
-Beyond the execution protocol, additional measures are taken to limit variation 
-introduced by the underlying \gls{LLM}.
+Beyond the execution protocol, additional measures are taken to limit variation introduced by the underlying \gls{LLM}.
 
 \subsection{Stochasticity Controls}
 
-Because the agent is driven by an \gls{LLM}, run-to-run variation cannot be 
-eliminated but is constrained as far as practical. The decoding temperature is 
-fixed at zero across all runs to minimize sampling-induced variation. The model 
-versions are pinned: Kimi K2.6 is served from a fixed snapshot deployed within 
-Hopsworks, and Claude Opus 4.7 is accessed via an explicit version-locked model 
-identifier on the Claude Platform. The system prompt, agent configuration, and tool 
-descriptions are identical across runs for a given condition. The remaining 
-variation attributable to \gls{LLM} non-determinism is captured by the three 
-repetitions per cell.
+Because the agent is driven by an \gls{LLM}, run-to-run variation cannot be eliminated but is constrained as far as practical. The decoding temperature is fixed at zero across all runs to minimize sampling-induced variation. Temperature controls the randomness of the model's token selection during generation, with a value of zero making the output deterministic by always choosing the highest-probability next token~\cite{ackley_learning_1985, holtzman_curious_2020}. The model versions are pinned: Kimi K2.6 is served from a fixed snapshot deployed within Hopsworks, and Claude Opus 4.5 is accessed via an explicit version-locked model identifier on the Claude Platform. The system prompt, agent configuration, and tool descriptions are identical across runs for a given condition. Despite these controls, residual non-determinism remains, arising from sources such as floating-point non-associativity in parallel inference, batching effects on shared inference infrastructure, and tool-execution latencies that subtly alter the token sequence the model conditions on. The three repetitions per cell introduced in the experiment design are intended to characterize this residual variation rather than eliminate it.
 
-The data needed to evaluate each run is captured by the instrumentation built into 
-the testing system.
+The data needed to evaluate each run is captured by the instrumentation built into the testing system.
 
 \subsection{Instrumentation}
 
-All runs are logged automatically by a combination of OpenCode, the coordinator 
-service, \gls{MLE}-bench, Lite\gls{LLM}, and Langfuse, with the coordinator service 
-acting as the central aggregation point. OpenCode records the full sequence of 
-agent actions, tool calls, and tool responses for each run. \gls{MLE}-bench records 
-the validation status of each submission and the resulting raw score and medal 
-classification. Lite\gls{LLM} provides per-call token usage statistics for all 
-\gls{LLM} requests routed through it, and Langfuse provides cost calculations 
-derived from the token usage and the corresponding model pricing. The coordinator 
-service records the assigned interface, model, task, and skill condition for each 
-run, tracks start and end timestamps, monitors run status, and queries Lite\gls{LLM} 
-and Langfuse to retrieve token usage and cost information at the end of each run. 
-All collected data is consolidated by the coordinator and persisted in the 
-Hopsworks feature store, where the records are organized as feature groups for 
-subsequent analysis. Logs from all sources are linked through a unique run 
-identifier encoding the interface, model, task, skill condition, and repetition 
-index. Analysis is conducted within Jupyter notebooks running against Hopsworks, 
-which natively supports notebook-based exploration of data stored in the feature 
-store.
+All runs are logged automatically by a combination of OpenCode, the coordinator, \gls{MLE}-bench, and Lite\gls{LLM}, with the coordinator acting as the central aggregation point. \gls{MLE}-bench records the validation status of each submission and the resulting raw score and medal classification. Lite\gls{LLM} logs all model invocations, including per-call token usage and cost, to OpenSearch.
 
-The remaining planning element is the assessment of validity, which considers the 
-extent to which the design supports sound conclusions.
+The coordinator records the assigned interface, model, task, skill condition, and repetition index for each run, tracks start and end timestamps, monitors run status, and queries OpenSearch to retrieve token usage and cost information at the end of each run. The coordinator consolidates all collected data and writes it to a \texttt{results.\gls{CSV}} file added to each Hopsworks project. The per-project files are then ingested into the Hopsworks feature store as feature groups, providing a unified view of the records across all runs for subsequent analysis. Logs from all sources are linked through a unique run identifier encoding the interface, model, task, skill condition, and repetition index. Analysis is conducted within Jupyter notebooks running against Hopsworks, which natively supports notebook-based exploration of data stored in the feature store.
+
+The remaining planning element is the assessment of validity, which considers the extent to which the design supports sound conclusions.
+
+\subsection{Analysis}
+
+The dependent variables are aggregated across repetitions and across tasks according to rules fixed before execution. \emph{Task success} is aggregated across the three repetitions of each cell as the arithmetic mean of \gls{MLE}-bench raw scores; medal classifications are reported separately for each repetition rather than averaged, since medal categories are ordinal. \emph{Token consumption} is aggregated across repetitions as the arithmetic mean. \emph{Platform usage} is analyzed at the level of individual repetitions rather than aggregated, since the variability of bypass behaviour across repetitions is itself informative for \gls{RQ}2.
+
+For \gls{RQ}3, the skill set is derived by taking the union of all distinct local-Python operations observed across the three repetitions of each (interface, task) cell in the first phase. Each unique bypassed operation is matched to the corresponding Hopsworks endpoint, and a skill addressing it is added to \texttt{hops-skills.\gls{MD}}. This union-based aggregation ensures that no observed coverage gap is omitted from the skill set, at the cost of treating one-off bypasses identically to consistently observed ones.
+
+Hypothesis testing proceeds as follows. For the interface comparison, paired comparisons across the eight tasks are conducted between \gls{CLI} and \gls{MCP}, and between each interface and the \gls{SDK} baseline, using cell means computed from the three repetitions. Where the per-task differences satisfy normality, paired $t$-tests are reported; otherwise the Wilcoxon signed-rank test is used. With three repetitions per cell, within-cell variance is reported alongside cell means as a descriptive measure of \gls{LLM} non-determinism but is not pooled into a mixed-effects model because the three-repetition sample size is too small to estimate variance components reliably at the cell level. For the skill comparison, the same paired structure is applied between with-skills and without-skills runs of the corresponding interface and task. All tests are reported with effect sizes (Cohen's $d$ for parametric tests, rank-biserial correlation for non-parametric tests) so that the magnitude of differences can be interpreted independently of statistical significance, particularly given the constrained sample size.
 
 \subsection{Validity}
 
-Internal validity is threatened by the possibility that differences in submission 
-score, token consumption, or elapsed time reflect prompt sensitivity or stochastic 
-variation in generation rather than a genuine effect of interface type. This is 
-partially mitigated by using the same base prompt structure and decoding parameters 
-across conditions and by treating \gls{LLM} backend as a factor so that 
-model-specific effects can be separated from interface effects. Remaining variance 
-attributable to \gls{LLM} non-determinism constitutes irreducible experimental error.
+Internal validity is threatened by the possibility that differences in submission score or token consumption reflect prompt sensitivity or stochastic variation in generation rather than a genuine effect of interface type. This is partially mitigated by using the same base prompt structure and decoding parameters across conditions, and by repeating each treatment combination three times to characterize within-cell variance. Residual variation attributable to \gls{LLM} non-determinism is quantified through these repetitions and discussed further under conclusion validity.
 
-External validity is limited by the scope of the benchmark. The eight Kaggle 
-competitions represent a curated subset of competitive \gls{ML} tasks and may not 
-generalize to production \gls{MLOps} workflows, proprietary datasets, or agent 
-frameworks other than OpenCode. Generalization to \gls{MLOps} platforms other than 
-Hopsworks is also not directly supported by these experiments.
+External validity is limited along two dimensions. First, the eight Kaggle competitions represent a curated subset of competitive \gls{ML} tasks and may not generalize to production \gls{MLOps} workflows, proprietary datasets, or agent frameworks other than OpenCode. Generalization to \gls{MLOps} platforms other than Hopsworks is also not directly supported by these experiments. Second, full coverage with three repetitions per cell is provided only for Kimi K2.6; the reduced Claude Opus 4.5 coverage permits a robustness check but does not support broad claims about generalization across \gls{LLM} backends, and any cross-model differences observed should be treated as suggestive rather than definitive.
 
-Construct validity depends on whether \gls{MLE}-bench submission score is an 
-adequate operationalization of \gls{ML} solution quality. Because \gls{MLE}-bench 
-scores are derived from the same evaluation protocol as the original Kaggle 
-competitions, they are considered a reasonable proxy for competitive \gls{ML} 
-performance. Token consumption is a direct count of tokens processed and requires 
-no further operationalization. Elapsed time is recorded as wall-clock time and 
-therefore reflects not only agent reasoning but also infrastructure latency, which 
-is acknowledged as a limitation of this measure. Platform usage is measured by 
-counting turns in which the agent executes local Python code rather than invoking 
-a platform operation, and depends on the accuracy with which these turns can be 
-classified from the agent logs.
+Construct validity depends on whether the \gls{MLE}-bench submission score is an adequate operationalization of \gls{ML} solution quality. Because \gls{MLE}-bench scores are derived from the same evaluation protocol as the original Kaggle competitions, they are considered a reasonable proxy for competitive \gls{ML} performance. Token consumption is a direct count of tokens processed and requires no further operationalization. Platform usage is measured by counting turns in which the agent executes local Python code rather than invoking a platform operation, and depends on the accuracy with which these turns can be classified from the agent logs.
 
-Conclusion validity is strengthened by the inclusion of three repetitions per cell, 
-which allows within-cell variance attributable to \gls{LLM} non-determinism to be 
-estimated and separated from between-condition differences. With eight task 
-categories and three repetitions, each cell contains 24 observations when 
-aggregated across task categories, providing reasonable power to detect moderate 
-effect sizes. Conclusions for individual task categories are based on three 
-observations per cell and should be interpreted with greater caution.
+Conclusion validity is supported by repeating each treatment combination three times under Kimi K2.6, allowing within-cell variance attributable to \gls{LLM} non-determinism to be estimated and accounted for in hypothesis testing. The use of zero-temperature decoding and pinned model versions further reduces this source of variation. With three repetitions per cell across eight tasks, between-condition differences that are consistent across both repetitions and tasks provide stronger evidence than differences observed on individual repetitions or tasks. Conclusions drawn at the level of individual task categories rest on three observations per cell and should be interpreted with greater caution than conclusions aggregated across tasks. The reduced Claude Opus 4.5 coverage retains three repetitions per cell within the available subset, but the smaller number of tasks limits the strength of any inference involving the closed-source backend.
 
-With the experiments fully planned, the next phase concerns putting the plan into 
-practice.
+With the experiments fully planned, the next phase concerns putting the plan into practice.
 
 \section{Operating the Experiments}
+
+\subsection{Preparation}
+
+\subsection{Execution}
+
+\subsubsection{Hopsworks Software Development Kit}
+\subsubsection{Hopsworks Command Line Interface}
+\subsubsection{Hopsworks Model Context Protocol Server}
+\subsubsection{Hopsworks Skills}
+
+\subsection{Data Validation}
 
 \section{Analysis and Interpretation}
 
@@ -1378,7 +1251,7 @@ practice.
 \begin{landscape}
 
 \begin{longtable}{@{}|>{\raggedright\arraybackslash}p{3cm}|c|c|c|c|c|c|@{}}
-\caption{\Gls{ML} platform support for \glspl{CLI}, \gls{MCP}, agents, and skills up to the 13th of April 2026. \ding{51}\ indicates that the platform offers a capability, and -- indicates that no evidence was found. Platform names and checkmarks are hyperlinked to their respective documentation or marketing material.}
+\caption{\Gls{ML} platform support for \glspl{CLI}, \gls{MCP}, agents, and skills up to the 7th of May 2026. \ding{51}\ indicates that the platform offers a capability, and -- indicates that no evidence was found. Platform names and checkmarks are hyperlinked to their respective documentation or marketing material.}
 \label{tab:ml-platforms} \\
 \toprule
 \textbf{platform} & \textbf{\gls{CLI}} & \textbf{\gls{MCP}} & \textbf{\gls{MCP} server hosting} & \textbf{agent} & \textbf{agent hosting} & \textbf{skills} \\
@@ -1392,59 +1265,87 @@ practice.
 \endfoot
 \bottomrule
 \endlastfoot
-\href{https://www.aible.com}{Aible} & -- & -- & -- & -- & \href{https://enaible.aible.com/hubfs/Aible%20Overview_Nov_2025.pdf}{\ding{51}} & -- \\ \hline
+\href{http://abacus.ai/}{Abacus} & \href{https://abacus.ai/help/abacusai-desktop/introduction}{\ding{51}} & \href{https://abacus.ai/help/abacusai-desktop/abacusai_desktop_mcp}{\ding{51}} & -- & \href{https://abacus.ai/help/chatllm-ai-super-assistant/introduction}{\ding{51}} & -- & \href{https://abacus.ai/help/chatllm-ai-super-assistant/agent-skills?_highlight=skill}{\ding{51}} \\ \hline
 
-\href{https://www.alibabacloud.com}{Alibaba Cloud} & \href{https://www.alibabacloud.com/help/en/cli/}{\ding{51}} & \href{https://github.com/aliyun/alibaba-cloud-ops-mcp-server}{\ding{51}} & -- & -- & \href{https://www.alibabacloud.com/en/product/agentbay?_p_lc=1}{\ding{51}} & \href{https://www.alibabagroup.com/en-US/document-1971078136456019968}{\ding{51}} \\ \hline
+\href{https://www.aible.com/}{Aible} & -- & -- & -- & -- & \href{https://enaible.aible.com/hubfs/Aible%20Overview_Nov_2025.pdf}{\ding{51}} & -- \\ \hline
 
-\href{https://www.altair.com}{Altair} & \href{https://help.altair.com/accelerator/html/bookshelf/topics/ft/tut_cli.htm}{\ding{51}} & \href{https://altair.com/newsroom/news-releases/altair-rapidminer-data-analytics-and-ai-platform-accelerates-enterprise-intelligence-with-expanded-agentic-ai-and-analytics-ecosystem}{\ding{51}} & -- & -- & -- & -- \\ \hline
+\href{https://www.alibabacloud.com/en/product/machine-learning?_p_lc=1}{Alibaba Cloud} & \href{https://www.alibabacloud.com/help/en/cli/}{\ding{51}} & \href{https://github.com/aliyun/alibaba-cloud-ops-mcp-server}{\ding{51}} & -- & -- & \href{https://www.alibabacloud.com/en/product/agentbay?_p_lc=1}{\ding{51}} & \href{https://www.alibabagroup.com/en-US/document-1971078136456019968}{\ding{51}} \\ \hline
 
-\href{https://www.alteryx.com}{Alteryx} & \href{https://help.alteryx.com/current/en/designer/workflows/run-workflows-via-command-line.html}{\ding{51}} & -- & -- & -- & \href{https://www.alteryx.com/blog/what-is-an-ai-agent-meet-your-digital-teammate}{\ding{51}} & -- \\ \hline
+\href{https://altair.com/}{Altair} & \href{https://help.altair.com/accelerator/html/bookshelf/topics/ft/tut_cli.htm}{\ding{51}} & \href{https://altair.com/newsroom/news-releases/altair-rapidminer-data-analytics-and-ai-platform-accelerates-enterprise-intelligence-with-expanded-agentic-ai-and-analytics-ecosystem}{\ding{51}} & -- & -- & -- & -- \\ \hline
 
-\href{https://aws.amazon.com}{Amazon Web Services} & \href{https://aws.amazon.com/cli/}{\ding{51}} & \href{https://github.com/awslabs/mcp}{\ding{51}} & \href{https://aws.amazon.com/blogs/containers/deploying-model-context-protocol-mcp-servers-on-amazon-ecs/}{\ding{51}} & \href{https://aws.amazon.com/about-aws/whats-new/2025/11/amazon-sagemaker-data-agent-analytics-ai-ml-development/}{\ding{51}} & \href{https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html}{\ding{51}} & \href{https://aws.amazon.com/blogs/developer/introducing-agent-plugins-for-aws/}{\ding{51}} \\ \hline
+\href{https://www.alteryx.com/}{Alteryx} & \href{https://help.alteryx.com/current/en/designer/workflows/run-workflows-via-command-line.html}{\ding{51}} & -- & -- & -- & \href{https://www.alteryx.com/blog/what-is-an-ai-agent-meet-your-digital-teammate}{\ding{51}} & -- \\ \hline
 
-\href{https://www.bauplanlabs.com}{Bauplan} & \href{https://docs.bauplanlabs.com/reference/cli}{\ding{51}} & \href{https://github.com/BauplanLabs/bauplan-mcp-server}{\ding{51}} & -- & \href{https://www.bauplanlabs.com/agentic-resources/how-do-ai-agents-use-bauplan}{\ding{51}} & -- & -- \\ \hline
+\href{https://aws.amazon.com/de/sagemaker/}{Amazon SageMaker} & \href{https://aws.amazon.com/cli/}{\ding{51}} & \href{https://github.com/awslabs/mcp}{\ding{51}} & \href{https://aws.amazon.com/blogs/containers/deploying-model-context-protocol-mcp-servers-on-amazon-ecs/}{\ding{51}} & \href{https://aws.amazon.com/about-aws/whats-new/2025/11/amazon-sagemaker-data-agent-analytics-ai-ml-development/}{\ding{51}} & \href{https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html}{\ding{51}} & \href{https://aws.amazon.com/blogs/developer/introducing-agent-plugins-for-aws/}{\ding{51}} \\ \hline
 
-\href{https://www.cloudera.com}{Cloudera} & \href{https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cdp-cli.html}{\ding{51}} & \href{https://github.com/cloudera/CAI_Workbench_MCP_Server}{\ding{51}} & -- & -- & \href{https://docs.cloudera.com/machine-learning/cloud/use-ai-studios/topics/ml-agent-studio-overview.html}{\ding{51}} & -- \\ \hline
+\href{https://machinelearning.apple.com/research/overton}{Apple Overton} & -- & -- & -- & -- & -- & -- \\ \hline
 
-\href{https://www.databricks.com}{Databricks} & \href{https://docs.databricks.com/aws/en/dev-tools/cli/}{\ding{51}} & \href{https://docs.databricks.com/aws/en/generative-ai/mcp/custom-mcp}{\ding{51}} & -- & \href{https://www.databricks.com/blog/introducing-genie-code}{\ding{51}} & \href{https://docs.databricks.com/aws/en/generative-ai/agent-framework/create-agent}{\ding{51}} & \href{https://github.com/databricks/databricks-agent-skills}{\ding{51}} \\ \hline
+\href{https://www.astronomer.io/}{Astronomer} & \href{https://www.astronomer.io/docs/astro/cli/v-1-42/overview}{\ding{51}} & \href{https://www.astronomer.io/docs/astro/astro-mcp-server}{\ding{51}} & -- & \href{https://www.astronomer.io/docs/astro/otto-overview}{\ding{51}} & -- & -- \\ \hline
 
-\href{https://www.dataiku.com}{Dataiku} & \href{https://doc.dataiku.com/dss/latest/operations/dsscli.html}{\ding{51}} & -- & \href{https://developer.dataiku.com/latest/tutorials/genai/agents-and-tools/mcp/my-mcp/index.html}{\ding{51}} & -- & -- & -- \\ \hline
-\href{https://www.datarobot.com}{DataRobot} & \href{https://docs.datarobot.com/en/docs/agentic-ai/cli/index.html}{\ding{51}} & -- & \href{https://github.com/datarobot-community/datarobot-mcp-template}{\ding{51}} & -- & \href{https://www.datarobot.com/product/agentic-ai/}{\ding{51}} & \href{https://github.com/datarobot-oss/datarobot-agent-skills}{\ding{51}} \\ \hline
+\href{https://www.bauplanlabs.com/}{Bauplan} & \href{https://docs.bauplanlabs.com/reference/cli}{\ding{51}} & \href{https://github.com/BauplanLabs/bauplan-mcp-server}{\ding{51}} & -- & \href{https://www.bauplanlabs.com/agentic-resources/how-do-ai-agents-use-bauplan}{\ding{51}} & -- & -- \\ \hline
 
-\href{https://www.dominodatalab.com}{Domino} & \href{https://docs.dominodatalab.com/en/latest/user_guide/30b067/domino-cli/}{\ding{51}} & \href{https://github.com/dominodatalab/domino_mcp_server}{\ding{51}} & -- & -- & -- & \href{https://domino.ai/resources/blueprints/claude-code-on-domino}{\ding{51}} \\ \hline
+\href{https://chalk.ai/}{Chalk} & -- & -- & -- & -- & -- & -- \\ \hline
 
-\href{https://feast.dev}{Feast} & \href{https://docs.feast.dev/reference/feast-cli-commands}{\ding{51}} & \href{https://docs.feast.dev/tutorials/mcp_feature_store}{\ding{51}} & -- & -- & -- & \href{https://github.com/feast-dev/feast/pull/6081}{\ding{51}} \\ \hline
+\href{https://chronon.ai/}{Chronon} & \href{https://chronon.ai/setup/Overview.html}{\ding{51}} & -- & -- & -- & -- & -- \\ \hline
 
-\href{https://cloud.google.com}{Google Cloud} & \href{https://cloud.google.com/cli}{\ding{51}} & \href{https://github.com/google/mcp}{\ding{51}} & -- & \href{https://cloud.google.com/blog/products/data-analytics/introducing-bigquery-agent-analytics}{\ding{51}} & \href{https://cloud.google.com/products/agent-builder}{\ding{51}} & \href{https://developers.googleblog.com/closing-the-knowledge-gap-with-agent-skills/}{\ding{51}} \\ \hline
+\href{https://www.cloudera.com/}{Cloudera} & \href{https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cdp-cli.html}{\ding{51}} & \href{https://github.com/cloudera/CAI_Workbench_MCP_Server}{\ding{51}} & -- & -- & \href{https://docs.cloudera.com/machine-learning/cloud/use-ai-studios/topics/ml-agent-studio-overview.html}{\ding{51}} & -- \\ \hline
 
-\href{http://h2o.ai/}{\gls{H2O}.\newline\gls{AI}} & \href{https://docs.h2o.ai/h2o-ai-cloud/developerguide/cli}{\ding{51}} & \href{https://github.com/h2oai/h2ogpte-mcp-server}{\ding{51}} & -- & -- & \href{https://www.youtube.com/watch?v=h9lI8WLFq14&list=PLNtMya54qvOHaSCFStUxmk-6VxCAuPfjj}{\ding{51}} & -- \\ \hline
+\href{https://www.databricks.com/}{Databricks} & \href{https://docs.databricks.com/aws/en/dev-tools/cli/}{\ding{51}} & \href{https://docs.databricks.com/aws/en/generative-ai/mcp/custom-mcp}{\ding{51}} & \href{https://docs.databricks.com/aws/en/generative-ai/mcp/custom-mcp}{\ding{51}} & \href{https://www.databricks.com/blog/introducing-genie-code}{\ding{51}} & \href{https://docs.databricks.com/aws/en/generative-ai/agent-framework/create-agent}{\ding{51}} & \href{https://github.com/databricks/databricks-agent-skills}{\ding{51}} \\ \hline
 
-\href{https://www.hopsworks.ai}{Hopsworks} & \href{https://github.com/hopshadoop/hopsworks-cli}{\ding{51}} & \href{https://github.com/logicalclocks/hopsworks-api/tree/main/python/hopsworks/mcp}{\ding{51}} & -- & \href{https://www.hopsworks.ai/events/machine-learning-at-terminal-velocity}{\ding{51}} & \href{https://www.youtube.com/watch?v=GM5z6-NaToE}{\ding{51}} & -- \\ \hline
+\href{https://www.dataiku.com/}{Dataiku} & \href{https://doc.dataiku.com/dss/latest/operations/dsscli.html}{\ding{51}} & -- & \href{https://developer.dataiku.com/latest/tutorials/genai/agents-and-tools/mcp/my-mcp/index.html}{\ding{51}} & -- & -- & -- \\ \hline
 
-\href{https://www.ibm.com}{\gls{IBM}} & \href{https://www.ibm.com/products/tutorials/getting-started-with-the-ibm-cloud-command-line-interface}{\ding{51}} & \href{https://github.com/IBM/mcp}{\ding{51}} & -- & -- & \href{https://www.ibm.com/solutions/ai-agents}{\ding{51}} & -- \\ \hline
+\href{https://www.datarobot.com/}{DataRobot} & \href{https://docs.datarobot.com/en/docs/agentic-ai/cli/index.html}{\ding{51}} & -- & \href{https://github.com/datarobot-community/datarobot-mcp-template}{\ding{51}} & -- & \href{https://www.datarobot.com/product/agentic-ai/}{\ding{51}} & \href{https://github.com/datarobot-oss/datarobot-agent-skills}{\ding{51}} \\ \hline
 
-\href{https://www.iguazio.com}{Iguazio} & \href{https://www.iguazio.com/docs/v3.6/services/data-layer/tsdb/tsdb-cli/}{\ding{51}} & \href{https://github.com/iguazio/mcp-server}{\ding{51}} & -- & -- & -- & -- \\ \hline
+\href{https://domino.ai/}{Domino} & \href{https://docs.dominodatalab.com/en/latest/user_guide/30b067/domino-cli/}{\ding{51}} & \href{https://github.com/dominodatalab/domino_mcp_server}{\ding{51}} & -- & -- & -- & \href{https://domino.ai/resources/blueprints/claude-code-on-domino}{\ding{51}} \\ \hline
 
-\href{https://jfrog.com}{JFrog} & \href{https://jfrog.com/getcli/}{\ding{51}} & \href{https://docs.jfrog.com/integrations/docs/jfrog-mcp-server}{\ding{51}} & -- & -- & \href{https://jfrog.com/learn/devops/agentic-repository/}{\ding{51}} & \href{https://docs.jfrog.com/artifactory/docs/skills-repositories}{\ding{51}} \\ \hline
+\href{https://www.dremio.com/}{Dremio} & \href{https://www.dremio.com/blog/the-first-user-of-your-cli-wont-be-a-person/}{\ding{51}} & \href{https://docs.dremio.com/current/developer/mcp-server/}{\ding{51}} & -- & \href{https://www.dremio.com/ai-agent/}{\ding{51}} & -- & \href{https://github.com/developer-advocacy-dremio/dremio-agent-skill}{\ding{51}} \\ \hline
 
-\href{https://www.knime.com}{\gls{KNIME}} & \href{https://www.knime.com/faq}{\ding{51}} & -- & \href{https://www.knime.com/blog/put-scalable-AI-Agents-into-production-with-the-MCP-standard-and-KNIME}{\ding{51}} & -- & \href{https://www.knime.com/key-capabilities/ai-agents}{\ding{51}} & -- \\ \hline
+\href{https://engineering.fb.com/2016/05/09/core-infra/introducing-fblearner-flow-facebook-s-ai-backbone/}{\gls{FB}Learner} & -- & -- & -- & -- & -- & -- \\ \hline
 
-\href{https://www.mathworks.com}{MathWorks} & \href{https://www.mathworks.com/help/bugfinder/command-line-only-options.html}{\ding{51}} & \href{https://github.com/matlab/matlab-mcp-core-server}{\ding{51}} & -- & -- & \href{https://www.mathworks.com/campaigns/offers/next/agentic-ai-with-matlab.html}{\ding{51}} & \href{https://github.com/matlab/skills}{\ding{51}} \\ \hline
+\href{https://feast.dev/}{Feast} & \href{https://docs.feast.dev/reference/feast-cli-commands}{\ding{51}} & \href{https://docs.feast.dev/tutorials/mcp_feature_store}{\ding{51}} & -- & -- & -- & \href{https://github.com/feast-dev/feast/pull/6081}{\ding{51}} \\ \hline
 
-\href{https://azure.microsoft.com}{Microsoft Azure} & \href{https://learn.microsoft.com/en-us/cli/azure/?view=azure-cli-latest}{\ding{51}} & \href{https://github.com/microsoft/mcp}{\ding{51}} & -- & \href{https://www.microsoft.com/en-us/microsoft-365-copilot}{\ding{51}} & \href{https://learn.microsoft.com/en-us/azure/foundry/}{\ding{51}} & \href{https://github.com/microsoft/skills}{\ding{51}} \\ \hline
+\href{https://github.com/feathr-ai/feathr}{Feathr} & \href{https://feathr-ai.github.io/feathr/how-to-guides/azure-deployment-cli.html}{\ding{51}} & -- & -- & -- & -- & -- \\ \hline
 
-\href{https://modal.com}{Modal} & \href{https://modal.com/docs/reference/cli/shell}{\ding{51}} & -- & \href{https://modal.com/docs/examples/mcp_server_stateless}{\ding{51}} & -- & \href{https://modal.com/docs/examples/agent}{\ding{51}} & -- \\ \hline
+\href{https://featurebyte.ai/}{FeatureByte} & -- & -- & -- & \href{https://featurebyte.ai/}{\ding{51}} & -- & -- \\ \hline
 
-\href{https://www.sas.com}{\gls{SAS}} & \href{https://documentation.sas.com/doc/en/dataagentcdc/2.3/dataagentag/p1bhvtbh9yip6zn1mf9ccgsaxy0d.htm}{\ding{51}} & \href{https://github.com/sassoftware/sas-mcp-server}{\ding{51}} & -- & -- & \href{https://www.sas.com/en_us/solutions/ai/agentic-ai.html}{\ding{51}} & -- \\ \hline
+\href{https://www.featureform.com/}{Featureform} & \href{https://docs.featureform.com/getting-started/architecture-and-components}{\ding{51}} & -- & -- & -- & -- & -- \\ \hline
 
-\href{https://www.snowflake.com}{Snowflake} & \href{https://docs.snowflake.com/en/developer-guide/snowflake-cli/index}{\ding{51}} & \href{https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp}{\ding{51}} & -- & \href{https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents}{\ding{51}} & \href{https://www.snowflake.com/en/developers/guides/best-practices-to-building-cortex-agents/}{\ding{51}} & -- \\ \hline
+\href{https://cloud.google.com/products/gemini-enterprise-agent-platform}{Google Gemini Enterprise} & \href{https://cloud.google.com/cli}{\ding{51}} & \href{https://github.com/google/mcp}{\ding{51}} & -- & \href{https://cloud.google.com/blog/products/data-analytics/introducing-bigquery-agent-analytics}{\ding{51}} & \href{https://cloud.google.com/products/agent-builder}{\ding{51}} & \href{https://developers.googleblog.com/closing-the-knowledge-gap-with-agent-skills/}{\ding{51}} \\ \hline
 
-\href{https://www.teradata.com}{Teradata} & \href{https://docs.teradata.com/r/Enterprise_IntelliFlex_Lake_VMware/Teradata-Call-Level-Interface-Version-2-Reference-for-Workstation-Attached-Systems-20.00/Introduction-to-CLI/What-is-CLIv2}{\ding{51}} & \href{https://github.com/Teradata/teradata-mcp-server}{\ding{51}} & -- & \href{https://www.teradata.com/insights/ai-and-machine-learning/teradata-ai-agent-for-data-analysis}{\ding{51}} & \href{https://www.teradata.com/platform/agent-stack}{\ding{51}} & -- \\ \hline
+\href{https://h2o.ai/}{\gls{H2O}.AI} & \href{https://docs.h2o.ai/h2o-ai-cloud/developerguide/cli}{\ding{51}} & \href{https://github.com/h2oai/h2ogpte-mcp-server}{\ding{51}} & -- & -- & \href{https://www.youtube.com/watch?v=h9lI8WLFq14&list=PLNtMya54qvOHaSCFStUxmk-6VxCAuPfjj}{\ding{51}} & -- \\ \hline
 
-\href{https://www.tibco.com}{\gls{TIBCO} Software} & \href{https://docs.tibco.com/pub/emsa/3.0.1/doc/html/GUID-B3DE6616-2A96-4242-846B-2B22FF8502D5.html}{\ding{51}} & \href{https://docs.tibco.com/pub/flogo/latest/doc/html/connectors/mcp/mcp-server.htm}{\ding{51}} & -- & -- & \href{https://www.tibco.com/}{\ding{51}} & -- \\
+\href{https://www.hopsworks.ai/}{Hopsworks} & \href{https://github.com/hopshadoop/hopsworks-cli}{\ding{51}} & \href{https://github.com/logicalclocks/hopsworks-api/tree/main/python/hopsworks/mcp}{\ding{51}} & -- & \href{https://www.hopsworks.ai/events/machine-learning-at-terminal-velocity}{\ding{51}} & \href{https://www.youtube.com/watch?v=GM5z6-NaToE}{\ding{51}} & -- \\ \hline
+
+\href{https://www.ibm.com/products/watson-studio}{\gls{IBM} Watson Studio} & \href{https://www.ibm.com/products/tutorials/getting-started-with-the-ibm-cloud-command-line-interface}{\ding{51}} & \href{https://github.com/IBM/mcp}{\ding{51}} & -- & -- & \href{https://www.ibm.com/solutions/ai-agents}{\ding{51}} & -- \\ \hline
+
+\href{https://www.iguazio.com/}{Iguazio} & \href{https://www.iguazio.com/docs/v3.6/services/data-layer/tsdb/tsdb-cli/}{\ding{51}} & \href{https://github.com/iguazio/mcp-server}{\ding{51}} & -- & -- & -- & -- \\ \hline
+
+\href{https://jfrog.com/}{JFrog} & \href{https://jfrog.com/getcli/}{\ding{51}} & \href{https://docs.jfrog.com/integrations/docs/jfrog-mcp-server}{\ding{51}} & -- & -- & \href{https://jfrog.com/learn/devops/agentic-repository/}{\ding{51}} & \href{https://docs.jfrog.com/artifactory/docs/skills-repositories}{\ding{51}} \\ \hline
+
+\href{https://www.knime.com/}{\gls{KNIME}} & \href{https://www.knime.com/faq}{\ding{51}} & -- & \href{https://www.knime.com/blog/put-scalable-AI-Agents-into-production-with-the-MCP-standard-and-KNIME}{\ding{51}} & -- & \href{https://www.knime.com/key-capabilities/ai-agents}{\ding{51}} & -- \\ \hline
+
+\href{https://www.mathworks.com/}{MathWorks} & \href{https://www.mathworks.com/help/bugfinder/command-line-only-options.html}{\ding{51}} & \href{https://github.com/matlab/matlab-mcp-core-server}{\ding{51}} & -- & -- & \href{https://www.mathworks.com/campaigns/offers/next/agentic-ai-with-matlab.html}{\ding{51}} & \href{https://github.com/matlab/skills}{\ding{51}} \\ \hline
+
+\href{https://azure.microsoft.com/en-us/products/machine-learning}{Microsoft Azure \gls{ML}} & \href{https://learn.microsoft.com/en-us/cli/azure/?view=azure-cli-latest}{\ding{51}} & \href{https://github.com/microsoft/mcp}{\ding{51}} & -- & \href{https://www.microsoft.com/en-us/microsoft-365-copilot}{\ding{51}} & \href{https://learn.microsoft.com/en-us/azure/foundry/}{\ding{51}} & \href{https://github.com/microsoft/skills}{\ding{51}} \\ \hline
+
+\href{https://modal.com/}{Modal} & \href{https://modal.com/docs/reference/cli/shell}{\ding{51}} & -- & \href{https://modal.com/docs/examples/mcp_server_stateless}{\ding{51}} & -- & \href{https://modal.com/docs/examples/agent}{\ding{51}} & -- \\ \hline
+
+\href{https://github.com/4paradigm/openmldb}{OpenMLDB} & \href{https://openmldb.ai/docs/en/main/quickstart/cli.html?highlight=cli}{\ding{51}} & -- & -- & -- & -- & -- \\ \hline
+
+\href{https://support.sas.com/en/software/machine-learning.html}{\gls{SAS}} & \href{https://documentation.sas.com/doc/en/dataagentcdc/2.3/dataagentag/p1bhvtbh9yip6zn1mf9ccgsaxy0d.htm}{\ding{51}} & \href{https://github.com/sassoftware/sas-mcp-server}{\ding{51}} & -- & -- & \href{https://www.sas.com/en_us/solutions/ai/agentic-ai.html}{\ding{51}} & -- \\ \hline
+
+\href{https://www.snowflake.com/en/}{Snowflake} & \href{https://docs.snowflake.com/en/developer-guide/snowflake-cli/index}{\ding{51}} & \href{https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp}{\ding{51}} & -- & \href{https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents}{\ding{51}} & \href{https://www.snowflake.com/en/developers/guides/best-practices-to-building-cortex-agents/}{\ding{51}} & -- \\ \hline
+
+\href{https://engineering.atspotify.com/2023/02/unleashing-ml-innovation-at-spotify-with-ray}{Spotify Ray} & \href{https://engineering.atspotify.com/2023/02/unleashing-ml-innovation-at-spotify-with-ray}{\ding{51}} & -- & -- & -- & -- & -- \\ \hline
+
+\href{https://www.teradata.com/}{Teradata} & \href{https://docs.teradata.com/r/Enterprise_IntelliFlex_Lake_VMware/Teradata-Call-Level-Interface-Version-2-Reference-for-Workstation-Attached-Systems-20.00/Introduction-to-CLI/What-is-CLIv2}{\ding{51}} & \href{https://github.com/Teradata/teradata-mcp-server}{\ding{51}} & -- & \href{https://www.teradata.com/insights/ai-and-machine-learning/teradata-ai-agent-for-data-analysis}{\ding{51}} & \href{https://www.teradata.com/platform/agent-stack}{\ding{51}} & -- \\ \hline
+
+\href{https://www.tibco.com/}{\gls{TIBCO} Software} & \href{https://docs.tibco.com/pub/emsa/3.0.1/doc/html/GUID-B3DE6616-2A96-4242-846B-2B22FF8502D5.html}{\ding{51}} & \href{https://docs.tibco.com/pub/flogo/latest/doc/html/connectors/mcp/mcp-server.htm}{\ding{51}} & -- & -- & \href{https://www.tibco.com/}{\ding{51}} & -- \\ \hline
+
+\href{https://www.uber.com/us/en/blog/michelangelo-machine-learning-platform/}{Uber Michelangelo} & -- & -- & -- & -- & -- & -- \\ \hline
 \end{longtable}
 
 \end{landscape}
+
 \arrayrulecolor{black}
 
 \clearpage\thispagestyle{empty}\mbox{} % empty page with backcover on the other side
