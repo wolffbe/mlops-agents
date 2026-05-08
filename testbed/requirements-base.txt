@@ -1,0 +1,11 @@
+# Pre-installed into every run venv before the agent starts.
+# uv hardlinks from its global cache after the first download, so
+# subsequent runs are fast. Add packages the agent commonly needs here.
+torch
+torchvision
+numpy
+pandas
+scikit-learn
+scipy
+Pillow
+matplotlib

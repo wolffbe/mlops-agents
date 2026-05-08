@@ -1,0 +1,24 @@
+model_list:
+  - model_name: claude-sonnet
+    litellm_params:
+      model: anthropic/claude-sonnet-4-6
+      api_key: os.environ/ANTHROPIC_API_KEY
+  - model_name: claude-opus
+    litellm_params:
+      model: anthropic/claude-opus-4-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+  # Claude Code uses Haiku for ancillary calls (title generation, summary,
+  # etc.). Pass it through too so those calls don't 400.
+  - model_name: claude-haiku-4-5-20251001
+    litellm_params:
+      model: anthropic/claude-haiku-4-5-20251001
+      api_key: os.environ/ANTHROPIC_API_KEY
+  # Wildcard catch-all for any future Anthropic model id Claude Code requests.
+  - model_name: "anthropic/*"
+    litellm_params:
+      model: "anthropic/*"
+      api_key: os.environ/ANTHROPIC_API_KEY
+
+litellm_settings:
+  callbacks: jsonl_callback.jsonl_logger
+  drop_params: true

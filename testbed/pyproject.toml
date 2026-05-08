@@ -1,0 +1,31 @@
+[project]
+name = "banter"
+version = "0.1.0"
+description = "Evaluation framework for optimizing the cost, latency and quality of AI agents invoking MLOps platform interfaces."
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.45.0",
+    "litellm[proxy]>=1.55.0",
+    "requests>=2.32",
+    "pandas>=2.2",
+    "matplotlib>=3.9",
+    "jupyter>=1.0",
+    "python-dotenv>=1.0",
+    "mlebench @ git+https://github.com/openai/mle-bench.git",
+]
+
+[project.scripts]
+coordinator = "coordinator.main:main"
+cell-feedback = "coordinator.main:cli_cell_feedback"
+check-kaggle-rules = "coordinator.kaggle:cli_check_kaggle_rules"
+prepare-task = "coordinator.prepare:cli_prepare_task"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["coordinator"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
